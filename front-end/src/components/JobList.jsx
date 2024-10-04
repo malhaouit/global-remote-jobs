@@ -2,22 +2,29 @@ import React from "react";
 import JobCard from './JobCard';
 import './JobList.css';
 
-const JobList = () => {
-  const jobs = [
-    { title: "Software Engineer", company: "Tech Corp", type: "Full-time", salary: "90k USD/year", location: "United States", posted: "10 minutes ago" },
-    { title: "Software Engineer", company: "Tech Corp", type: "Full-time", salary: "90k USD/year", location: "United States", posted: "10 minutes ago" },
-    { title: "Software Engineer", company: "Tech Corp", type: "Full-time", salary: "90k USD/year", location: "United States", posted: "10 minutes ago" },
-    { title: "Software Engineer", company: "Tech Corp", type: "Full-time", salary: "90k USD/year", location: "United States", posted: "10 minutes ago" },
-    // Add more jobs here
-  ];
-
+const JobList = ({ jobs }) => {
+  const displayedJobs = jobs.slice(0, 12);
+ 
   return (
     <section className="job-list">
       <h2>New Jobs</h2>
       <div className="job-grid">
-        {jobs.map((job, index) => (
-          <JobCard key={index} {...job} />
-        ))}
+        {jobs.length > 0 ? (
+          displayedJobs.map((job, index) => (
+            <JobCard 
+              key={index}
+              title={job.title}
+              company={job.company}
+              logo={job.logo}
+              location={job.location}
+              salary_min={job.salary_min}
+              salary_max={job.salary_max}
+              posted_date={job.posted_date}
+            />
+          ))
+        ) : (
+          <p>No jobs available right now.</p>
+        )}
       </div>
       <button className="more-jobs-btn">More Jobs</button>
     </section>
