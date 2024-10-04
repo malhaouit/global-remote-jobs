@@ -1,0 +1,66 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 10px 20px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .logo img {
+    cursor: pointer;
+  }
+  
+  .search-bar {
+    display: flex;
+    align-items: center;
+  }
+  
+  .search-bar input {
+    padding: 8px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+  }
+  
+  .search-bar button {
+    background-color: #1BA8F0;
+    padding: 8px 12px;
+    border: 0 4px 4px 0;
+    border-radius: 4px;
+    color: white;
+    margin-left: 5px;
+  }
+
+  .create-profile a {
+    text-decoration: none;
+    color: #000000;
+    cursor: pointer;
+  }
+  
+  .create-profile a:hover {
+    color: #1BA8F0;
+  }    
+  
+  .auth-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .auth-links a {
+    text-decoration: none;
+    color: #000000;
+    cursor: pointer;
+  }
+
+  .auth-links a:hover {
+    color: #1BA8F0;
+  }
+
+  .auth-links .signup-btn {
+    padding: 8px 16px;
+    color: white;
+    border-radius: 30px;
+    background-color: #1BA8F0;
+  }
