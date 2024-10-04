@@ -3,7 +3,13 @@
   border: 1px solid #ddd;
   padding: 20px;
   border-radius: 5px;
-  box-shadow: 0px 2px 10px rgb(0, 0, 0, 0.05);
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Add transition for smooth effect */
+}
+
+.job-card:hover {
+  transform: translateY(-5px); /* Move the card slightly up*/
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
 }
 
 .job-card h3 {
@@ -26,17 +32,19 @@
 
 .job-info {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   margin-top: 15px;
 }
 
 .job-info span {
   color: #999;
   font-size: 14px;
+  margin: 5px;
 }
 
 .posted-time {
-  margin-top: 15px;
+  margin-top: 10px;
   color: #999;
   font-size: 12px;
+  margin: 5px;
 }
