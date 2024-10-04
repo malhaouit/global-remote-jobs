@@ -25,7 +25,7 @@ const getFilteredJobs = async (req, res) => {
       location: job.location,
       salary_min: job.salary_min,
       salary_max: job.salary_max,
-      posted_data: job.date,
+      posted_date: job.date,
     }));
 
     res.json(filteredJobs);
