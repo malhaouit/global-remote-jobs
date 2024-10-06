@@ -7,6 +7,8 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Add transition for smooth effect */
   position: relative;
   cursor: pointer;
+  text-decoration: none;
+  color: inherit;
 }
 
 .job-card:hover {
@@ -30,15 +32,16 @@
   height: 40px;
   border-radius: 5px;
   margin-right: 10px;
+  object-fit: contain;
 }
 
 .job-info {
   display: flex;
   flex-direction: column;
-  margin-top: 15px;
+  margin-top: 10px;
 }
 
-.job-info span {
+.job-info ul li {
   color: #999;
   font-size: 14px;
   margin: 5px;

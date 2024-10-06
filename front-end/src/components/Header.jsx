@@ -8,7 +8,9 @@ const Header = () => {
   return (
     <header>
       <div className='logo'>
-        <img src={LogoSVG} alt='GlobalRemoteJobs Logo' />
+        <Link to={'/'}>
+          <img src={LogoSVG} alt='GlobalRemoteJobs Logo' />
+        </Link>
       </div>
       <div className='search-bar'>
         <input type='text' placeholder='Search for jobs...' />
