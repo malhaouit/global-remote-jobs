@@ -1,8 +1,9 @@
 const axios = require('axios');
 
+// Test: curl http://localhost:5000/api/jobs
 const getJobs = async (req, res) => {
   try {
-    const response = await axios.get('https://remoteok.com/api');
+    const response = await axios.get('https://remotive.com/api/remote-jobs');
     const jobs = response.data;
     res.json(jobs);
   } catch (error) {
@@ -12,20 +13,21 @@ const getJobs = async (req, res) => {
 
 const getFilteredJobs = async (req, res) => {
   try {
-    const response = await axios.get('https://remoteok.com/api');
-    const jobs = response.data;
+    const response = await axios.get('https://remotive.com/api/remote-jobs');
+    const jobs = response.data.jobs;
 
     // Filter jobs to only return the necessary fields
     const filteredJobs = jobs
-    .filter(job => job.position && job.company)
+    .filter(job => job.title && job.company_name)
     .map(job => ({
-      title: job.position,
-      company: job.company,
+      id: job.id,
+      title: job.title,
+      company: job.company_name,
       logo: job.company_logo,
-      location: job.location,
-      salary_min: job.salary_min,
-      salary_max: job.salary_max,
-      posted_date: job.date,
+      location: job.candidate_required_location,
+      salary: job.salary || 'Not specified',
+      job_type: job.job_type,
+      publication_date: job.publication_date,
     }));
 
     res.json(filteredJobs);
@@ -34,4 +36,31 @@ const getFilteredJobs = async (req, res) => {
   }
 };
 
-module.exports = { getJobs, getFilteredJobs };
+const getJobDetails = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const response = await axios.get('https://remotive.com/api/remote-jobs');
+    const job = response.data.jobs.find((job) => job.id === parseInt(id));
+
+    if (job) {
+      res.json({
+        title: job.title,
+        company: job.company_name,
+        logo: job.company_logo,
+        description: job.description,
+        skills: job.tags,
+        location: job.candidate_required_location,
+        salary: job.salary || 'Not specified',
+        job_type: job.job_type,
+        apply_url: job.url,
+        publication_date: job.publication_date,
+      });
+    } else {
+      res.status(404).json({ message: 'Job not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching job details' });
+  }
+};
+
+module.exports = { getJobs, getFilteredJobs, getJobDetails };
