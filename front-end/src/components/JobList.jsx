@@ -13,13 +13,14 @@ const JobList = ({ jobs }) => {
           displayedJobs.map((job, index) => (
             <JobCard 
               key={index}
+              id={job.id}
               title={job.title}
               company={job.company}
               logo={job.logo}
               location={job.location}
-              salary_min={job.salary_min}
-              salary_max={job.salary_max}
-              posted_date={job.posted_date}
+              salary={job.salary}
+              job_type={job.job_type}
+              posted_date={job.publication_date}
             />
           ))
         ) : (
