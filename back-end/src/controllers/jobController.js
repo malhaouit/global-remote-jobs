@@ -63,4 +63,30 @@ const getJobDetails = async (req, res) => {
   }
 };
 
-module.exports = { getJobs, getFilteredJobs, getJobDetails };
+const getPaginatedJobs = async (req, res) => {
+  const page = parseInt(req.query.page) || 1; // Current page number
+  const limit = parseInt(req.query.limit) || 10; // Number of jobs per page
+  const startIndex = (page - 1) * limit;
+
+  try {
+    const response = await axios.get('https://remotive.com/api/remote-jobs');
+    const jobs = response.data.jobs;
+
+    if (jobs.length === 0) {
+      return res.status(404).json({ message: 'Job not found' });
+    }
+
+    const paginatedJobs = jobs.slice(startIndex, startIndex + limit);
+
+    res.json({
+      totalJobs: jobs.length,
+      currentPage: page,
+      totalPages: Math.ceil(jobs.length / limit),
+      jobs: paginatedJobs,
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching jobs' });
+  }
+};
+
+module.exports = { getJobs, getFilteredJobs, getJobDetails, getPaginatedJobs };

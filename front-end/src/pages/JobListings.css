@@ -1,0 +1,38 @@
+.filters {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  background-color: #f4f4f4;
+}
+
+.job-listing-section {
+  padding: 20px;
+}
+
+.job-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 20px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.pagination button {
+  padding: 10px 15px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.pagination .active {
+  background-color: #1BA8F0;
+  color: white;
+}
+
+.pagination button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}

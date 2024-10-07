@@ -1,6 +1,7 @@
 import React from "react";
 import JobCard from './JobCard';
 import './JobList.css';
+import { Link } from "react-router-dom";
 
 const JobList = ({ jobs }) => {
   const displayedJobs = jobs.slice(0, 12);
@@ -27,7 +28,9 @@ const JobList = ({ jobs }) => {
           <p>No jobs available right now.</p>
         )}
       </div>
-      <button className="more-jobs-btn">More Jobs</button>
+      <button className="more-jobs-btn">
+        <Link to="/jobs" className="no-style-link">More Jobs</Link>
+      </button>
     </section>
   );
 };
