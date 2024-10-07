@@ -23,3 +23,9 @@
   color: white;
   border-radius: 5px;
 }
+
+.no-style-link {
+  text-decoration: none;
+  color: inherit; /* Inherit the color from the button */
+  display: inline-block; /* Ensure it takes the button's width/height properly */
+}
