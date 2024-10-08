@@ -96,6 +96,13 @@ const JobDetails = () => {
                 ))}
               </ul>
             </div>
+
+            <div className="category-section">
+              <p><strong>Category:</strong></p>
+              <ul>
+                <li>{job.category}</li>
+              </ul>
+            </div>
           </div>
         </section>
 
