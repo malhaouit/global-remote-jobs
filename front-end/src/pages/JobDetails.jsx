@@ -28,7 +28,7 @@ const JobDetails = () => {
   }, [id]);
 
   if (loading) {
-    return <div>Loading...</div>; // Display a loading message while fetching data
+    return <div className="loading">Loading the job...</div>; // Display a loading message while fetching data
   }
 
   if (!job) {
