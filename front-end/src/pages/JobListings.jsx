@@ -41,7 +41,7 @@ const JobListings = () => {
   };
 
   return (
-    <div>
+    <div className='job-listing-page'>
       <Header />
 
       <Filters onFilterChange={handleFilterChange} />
