@@ -1,0 +1,31 @@
+.filters {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .filters select, .filters input {
+    padding: 7px;
+    font-size: 14px;
+  }
+  
+  .filters button {
+    padding: 10px 15px;
+    background-color: #1BA8F0;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+  }
+  
+  .filters button:hover {
+    background-color: #1481C2;
+  }
+  
+  .filters input[disabled] {
+    background-color: #f0f0f0;
+    color: #999;
+  }  
