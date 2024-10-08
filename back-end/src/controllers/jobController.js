@@ -52,6 +52,7 @@ const getJobDetails = async (req, res) => {
         location: job.candidate_required_location,
         salary: job.salary || 'Not specified',
         job_type: job.job_type,
+        category: job.category,
         apply_url: job.url,
         publication_date: job.publication_date,
       });
@@ -64,27 +65,41 @@ const getJobDetails = async (req, res) => {
 };
 
 const getPaginatedJobs = async (req, res) => {
-  const page = parseInt(req.query.page) || 1; // Current page number
-  const limit = parseInt(req.query.limit) || 10; // Number of jobs per page
+  const { page = 1, limit = 10, job_type, location, category, custom_category } = req.query;
   const startIndex = (page - 1) * limit;
 
   try {
     const response = await axios.get('https://remotive.com/api/remote-jobs');
-    const jobs = response.data.jobs;
+    let jobs = response.data.jobs;
 
-    if (jobs.length === 0) {
-      return res.status(404).json({ message: 'Job not found' });
+    // Filter jobs by job_type
+    if (job_type) {
+      jobs = jobs.filter(job => job.job_type === job_type);
     }
 
-    const paginatedJobs = jobs.slice(startIndex, startIndex + limit);
+    // Filter jobs by location
+    if (location) {
+      jobs = jobs.filter(job => job.candidate_required_location.toLowerCase() === location.toLowerCase());
+    }
+
+    // Filter jobs by category (either from dropdown or custom input)
+    if (custom_category) {
+      jobs = jobs.filter(job => job.category.toLowerCase().includes(custom_category.toLowerCase()));
+    } else if (category) {
+      jobs = jobs.filter(job => job.category === category);
+    }
+
+    // Apply pagination to the filtered jobs
+    const paginatedJobs = jobs.slice(startIndex, startIndex + parseInt(limit));
 
     res.json({
-      totalJobs: jobs.length,
+      totalJobs: jobs.length,        // Total jobs after filtering
       currentPage: page,
-      totalPages: Math.ceil(jobs.length / limit),
-      jobs: paginatedJobs,
+      totalPages: Math.ceil(jobs.length / limit), // Total pages after filtering
+      jobs: paginatedJobs,           // Paginated jobs
     });
   } catch (error) {
+    console.error('Error fetching jobs:', error.message);
     res.status(500).json({ message: 'Error fetching jobs' });
   }
 };
