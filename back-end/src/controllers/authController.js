@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const generateToken = require('../utils/jwtToken');
 
@@ -53,4 +54,34 @@ const signUpCompany = async (req, res) => {
   }
 };
 
-module.exports = { signUpSeeker, signUpCompany };
+// Login
+const login = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // Check if user exists
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid credentials' });        
+    }
+
+    // Verify the password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Invalid credentails' });
+    }
+
+    // Generate toekn
+    const token = generateToken(user._id, user.role);
+
+    res.json({
+      message: 'Login successful',
+      token,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Server errro' });
+  }
+};
+
+module.exports = { signUpSeeker, signUpCompany, login };
