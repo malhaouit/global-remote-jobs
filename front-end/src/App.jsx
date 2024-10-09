@@ -7,6 +7,7 @@ import SignUpSeeker from './pages/SignUpSeeker';
 import Login from './pages/Login';
 import SignUpCompany from "./pages/SignUpCompany";
 import ChooseRole from './pages/ChooseRole';
+import ConfirmEmail from './pages/ConfirmEmail';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path='/signup' element={<ChooseRole />} />
         <Route path='/signup/seeker' element={<SignUpSeeker />} />
         <Route path='/signup/company' element={<SignUpCompany />} />
+        <Route path='/confirm-email' element={<ConfirmEmail />} />
         <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
