@@ -7,6 +7,8 @@ const UserSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   role: { type: String, enum: ['job_seeker', 'company'], required: true },
+  emailToken: { type: String },
+  isConfirmed: { type: Boolean, default: false },
   date: { type: Date, default: Date.now },
 });
 
