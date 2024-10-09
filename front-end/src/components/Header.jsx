@@ -22,8 +22,11 @@ const Header = () => {
         <a href='/create-profile'>Create a profile</a>
       </div>
       <div className='auth-links'>
-        <a href='/login'>Login</a>
-        <button className='signup-btn'>Sign Up</button>
+        {/* <a href='/login'>Login</a> */}
+        <Link to="/login">Login</Link>
+        <button className='signup-btn'>
+          <Link to='/signup'>Sign Up</Link>
+        </button>
       </div>
     </header>  
   );
