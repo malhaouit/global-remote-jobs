@@ -1,0 +1,28 @@
+.choose-role-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.role-options {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.role-box {
+  padding: 20px;
+  border: 1px solid #1BA8F0;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  background-color: white;
+}
+
+.role-btn {
+  text-decoration: none;
+  color: black;
+}
+
+.role-btn:hover .role-box {
+  background-color: #f0f8ff;
+}
