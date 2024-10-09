@@ -61,7 +61,16 @@ header {
   color: #1BA8F0;
 }
 
+.auth-links .signup-btn a {
+  color: white;
+}
+
+.auth-links .signup-btn a :hover {
+  color: white;
+}
+
 .auth-links .signup-btn {
+  text-decoration: none;
   padding: 8px 16px;
   color: white;
   border-radius: 30px;
