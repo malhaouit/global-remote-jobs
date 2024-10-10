@@ -14,17 +14,16 @@ const signUpSeeker = async (req, res) => {
       return res.status(400).json({ message: 'User already exists' });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
     const emailToken = generateEmailToken();
-    
+
     const newUser = new User({
       firstName,
       lastName,
       email,
-      password: hashedPassword,
+      password,   // No need to manually hash, the schema will handle it
       role: 'job_seeker',
       emailToken,
-      isConfirmed: false
+      isConfirmed: false,
     });
 
     await newUser.save();
@@ -40,7 +39,7 @@ const signUpSeeker = async (req, res) => {
 
 // Company Sign Up
 const signUpCompany = async (req, res) => {
-  const { firstName, lastName, email, password, confirmPassword } = req.body;
+  const { firstName, lastName, email, password } = req.body;
 
   try {
     let user = await User.findOne({ email });
@@ -50,18 +49,21 @@ const signUpCompany = async (req, res) => {
 
     const emailToken = generateEmailToken();
     user = new User({
-      firstName, lastName, email, password,
+      firstName,
+      lastName,
+      email,
+      password, // Schema will hash it
       role: 'company',
       emailToken,
-      isConfirmed: false 
+      isConfirmed: false,
     });
+
     await user.save();
 
     sendConfirmationEmail(email, emailToken);
 
     res.status(201).json({ message: 'Company registered. Please check your email for confirmation.' });
   } catch (error) {
-    console.error(error);
     res.status(500).json({ message: 'Server error' });
   }
 };
@@ -100,16 +102,21 @@ const login = async (req, res) => {
     // Check if user exists
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ message: 'Invalid credentials' });        
+      return res.status(400).json({ message: 'Invalid credentials' });
+    }
+
+    // Check if the user has confirmed their email
+    if (!user.isConfirmed) {
+      return res.status(400).json({ message: 'Please confirm your email before logging in.' });
     }
 
     // Verify the password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ message: 'Invalid credentails' });
+      return res.status(400).json({ message: 'Invalid credentials' });
     }
 
-    // Generate toekn
+    // Generate token
     const token = generateToken(user._id, user.role);
 
     res.json({
@@ -118,7 +125,7 @@ const login = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: 'Server errro' });
+    res.status(500).json({ message: 'Server error' });
   }
 };
 
