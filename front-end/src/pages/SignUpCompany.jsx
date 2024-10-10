@@ -33,12 +33,12 @@ const SignUpCompany = () => {
       const data = await response.json();
 
       if (response.ok) {
-        setSuccess('Singup successful');
+        setSuccess('Signup successful! Please check your email for confirmation.');
       } else {
-        setError(data.message || 'Singup failed');
+        setError(data.message || 'Signup failed. Please try again.');
       }
     } catch (error) {
-      console.error("Error:", error);
+      setError('An error occurred during signup. Please try again.');
     }
   };
 
@@ -89,13 +89,13 @@ const SignUpCompany = () => {
         <button type="submit">Sign Up</button>
       </form>
 
+      {/* Displaying error or success messages */}
       {error && <p className="error">{error}</p>}
       {success && <p className="success">{success}</p>}
 
       <div className="switch-text">
         Already have an account? <a href="/login">Login here</a>
       </div>
-
     </div>
   );
 };
