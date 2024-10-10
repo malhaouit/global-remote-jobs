@@ -10,19 +10,17 @@ const SignUpSeeker = () => {
     password: '',
     confirmPassword: ''
   });
-  const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-
-  const navigate = useNavigate();
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value});
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
     setSuccess('');
+    setError('');
 
     // Make POST request to backend to signup job seeker
     try {
@@ -35,12 +33,12 @@ const SignUpSeeker = () => {
       const data = await response.json();
 
       if (response.ok) {
-        setSuccess('Signup successful');
+        setSuccess('Signup successful! Please check your email for confirmation.');
       } else {
-        setError(data.message || 'Signup failed');
+        setError(data.message || 'Error occurred during signup.');
       }
     } catch (error) {
-      console.error('Server error:', error);
+      setError('Error occurred during signup.');
     }
   };
 
@@ -48,7 +46,7 @@ const SignUpSeeker = () => {
     <div className="signup-seeker">
       <h2>Job Seeker Sign Up</h2>
       <form onSubmit={handleSubmit}>
-      <input
+        <input
           type="text"
           name="firstName"
           placeholder="First Name"
@@ -91,6 +89,7 @@ const SignUpSeeker = () => {
         <button type="submit">Sign Up</button>
       </form>
 
+      {/* Display success or error messages */}
       {error && <p className="error">{error}</p>}
       {success && <p className="success">{success}</p>}
 
