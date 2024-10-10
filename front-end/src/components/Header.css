@@ -37,8 +37,9 @@ header {
 
 .create-profile a {
   text-decoration: none;
-  color: #000000;
+  color: #3a3a3a;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .create-profile a:hover {
@@ -53,8 +54,9 @@ header {
 
 .auth-links a {
   text-decoration: none;
-  color: #000000;
+  color: #3a3a3a;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .auth-links a:hover {
@@ -65,7 +67,7 @@ header {
   color: white;
 }
 
-.auth-links .signup-btn a :hover {
+.auth-links .logout-btn a :hover {
   color: white;
 }
 
@@ -75,4 +77,14 @@ header {
   color: white;
   border-radius: 30px;
   background-color: #1BA8F0;
+  font-weight: bold;
+}
+
+.auth-links .logout-btn {
+  text-decoration: none;
+  padding: 8px 16px;
+  color: white;
+  border-radius: 30px;
+  background-color: #1BA8F0;
+  font-weight: bold;
 }
