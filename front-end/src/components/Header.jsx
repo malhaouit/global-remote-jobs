@@ -1,10 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Header.css';
 import { FaSearch } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import LogoSVG from '../assets/GlobalRemoteJobs.svg';
 
 const Header = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Check if the user is logged in by checking if token exists
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    // Clear the token from localStorage and update the state
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+    window.location.reload();
+  };
+
   return (
     <header>
       <div className='logo'>
@@ -22,11 +41,25 @@ const Header = () => {
         <a href='/create-profile'>Create a profile</a>
       </div>
       <div className='auth-links'>
+        {isLoggedIn ? (
+          <>
+            <a href='/profile'>Profile</a>
+            <button className='logout-btn' onClick={handleLogout}>Logout</button>
+          </>
+        ) : (
+          <>
+            <Link to="/login">Login</Link>
+            <button className='signup-btn'>
+              <Link to='/signup'>Sign Up</Link>
+            </button>
+          </>
+        )}
+
         {/* <a href='/login'>Login</a> */}
-        <Link to="/login">Login</Link>
+        {/* <Link to="/login">Login</Link>
         <button className='signup-btn'>
           <Link to='/signup'>Sign Up</Link>
-        </button>
+        </button> */}
       </div>
     </header>  
   );
