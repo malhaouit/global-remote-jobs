@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import './Login.css';
 
 const Login = () => {
@@ -6,6 +7,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const navigate = useNavigate();  // For navigation after successful login
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,12 +27,13 @@ const Login = () => {
 
       if (response.ok) {
         setSuccess('Login successful');
-        // Store token in local storage or session storage
-        localStorage.setItem('token', data.token);
+        localStorage.setItem('token', data.token); // Store the JWT in local storage
+        navigate('/');
       } else {
         setError(data.message || 'Login failed');
       }
     } catch (error) {
+      setError('Server error occurred.');
       console.error('Server error:', error);
     }
   };
