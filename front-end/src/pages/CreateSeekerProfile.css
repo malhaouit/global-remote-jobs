@@ -1,0 +1,126 @@
+/* Container for the form */
+.create-profile-form {
+  width: 100%;
+  max-width: 650px;
+  margin: 50px auto;
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+}
+
+/* Heading styling */
+.create-profile-form h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2.2em;
+  color: #333;
+  font-weight: bold;
+  background: linear-gradient(90deg, #007bff, #1ba8f0); /* Gradient effect */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; /* Gradient text effect */
+}
+
+/* Form labels */
+.create-profile-form label {
+  display: block;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Form input fields and textarea */
+.create-profile-form input,
+.create-profile-form textarea {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 25px;
+  border: 1px solid #ccc;
+  border-radius: 8px; /* Rounded inputs */
+  font-size: 1em;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.create-profile-form input:focus,
+.create-profile-form textarea:focus {
+  border-color: #1BA8F0; /* Border color change on focus */
+  outline: none; /* Remove outline for better aesthetics */
+}
+
+/* Textarea specific styles */
+.create-profile-form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Contact Information Heading */
+.create-profile-form h3 {
+  margin-top: 40px;
+  color: #333;
+  font-size: 1.5em;
+  font-weight: bold;
+  border-bottom: 2px solid #1BA8F0; /* Underline the heading */
+  padding-bottom: 10px;
+}
+
+/* File input styling */
+.create-profile-form input[type="file"] {
+  padding: 10px;
+  border: none;
+  background: #f1f1f1;
+  cursor: pointer;
+}
+
+/* Submit button styling */
+.create-profile-form button {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #1BA8F0, #007bff); /* Gradient background */
+  border: none;
+  color: white;
+  font-size: 1.2em;
+  cursor: pointer;
+  border-radius: 50px; /* Rounded button */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect for the button */
+.create-profile-form button:hover {
+  background: linear-gradient(135deg, #1481C2, #0056b3);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+}
+
+/* Input type specific adjustments */
+.create-profile-form input[type="email"],
+.create-profile-form input[type="tel"],
+.create-profile-form input[type="url"] {
+  margin-bottom: 25px;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .create-profile-form {
+    padding: 20px;
+  }
+
+  .create-profile-form h2 {
+    font-size: 1.8em;
+  }
+
+  .create-profile-form h3 {
+    font-size: 1.3em;
+  }
+
+  .create-profile-form input,
+  .create-profile-form textarea {
+    padding: 12px;
+  }
+
+  .create-profile-form button {
+    padding: 12px;
+    font-size: 1.1em;
+  }
+}

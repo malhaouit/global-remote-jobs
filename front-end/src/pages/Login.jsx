@@ -28,7 +28,10 @@ const Login = () => {
       if (response.ok) {
         setSuccess('Login successful');
         localStorage.setItem('token', data.token); // Store the JWT in local storage
+        localStorage.setItem('role', data.role);
         navigate('/');
+        console.log('Role:', data.role);
+        console.log('Token:', data.token);
       } else {
         setError(data.message || 'Login failed');
       }

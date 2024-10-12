@@ -44,7 +44,7 @@ const signUpCompany = async (req, res) => {
   try {
     let user = await User.findOne({ email });
     if (user) {
-      return res.status(400).json({ message: 'Company already exists' });
+      return res.status(400).json({ message: 'User already exists' });
     }
 
     const emailToken = generateEmailToken();
@@ -102,7 +102,7 @@ const login = async (req, res) => {
     // Check if user exists
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ message: 'Invalid credentials' });
+      return res.status(400).json({ message: 'Email not found, please sign up!' });
     }
 
     // Check if the user has confirmed their email
@@ -118,10 +118,13 @@ const login = async (req, res) => {
 
     // Generate token
     const token = generateToken(user._id, user.role);
+    
+    console.log(user.role);
 
     res.json({
       message: 'Login successful',
       token,
+      role: user.role,
     });
   } catch (error) {
     console.log(error);

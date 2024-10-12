@@ -4,6 +4,7 @@ import JobList from "../components/JobList";
 import CallToAction from "../components/CallToAction";
 import Footer from "../components/Footer";
 import './HomePage.css';
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   const [jobs, setJobs] = useState([]);
@@ -31,7 +32,9 @@ const HomePage = () => {
           <h1>Opportunity is <br /> wherever you are</h1>
           <p>We’re connecting the best remote talent with the best remote companies.</p>
           <div className="button-group">
-            <button className="browse-jobs">Browse jobs</button>
+            <Link to='/jobs'>
+              <button className="browse-jobs">Browse jobs</button>
+            </Link>
             <button className="post-job-btn">Post a Job</button>
           </div>
         </div>
