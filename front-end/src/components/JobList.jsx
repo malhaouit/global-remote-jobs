@@ -55,9 +55,9 @@ const JobList = ({ jobs }) => {
       
       {/* More Jobs Button */}
       {!loading && jobs.length > 0 && (
-        <button className="more-jobs-btn">
-          <Link to="/jobs" className="no-style-link">More Jobs</Link>
-        </button>
+        <Link to='/jobs' className="no-style-link">
+          <button className="more-jobs-btn">More Jobs</button>
+        </Link>
       )}
     </section>
   );
