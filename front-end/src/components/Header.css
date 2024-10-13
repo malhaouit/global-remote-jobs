@@ -13,8 +13,9 @@ header {
 .logo img {
   cursor: pointer;
 }
-  
+
 .search-bar {
+  position: relative;
   display: flex;
   align-items: center;
 }
@@ -29,33 +30,102 @@ header {
 .search-bar button {
   background-color: #1BA8F0;
   padding: 8px 12px;
-  border: 0 4px 4px 0;
+  border: none;
   border-radius: 4px;
   color: white;
-  margin-left: 5px;
 }
 
+.searching-message {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 5px;
+  color: #777;
+  font-size: 14px;
+}
+
+/* Suggestions list styling */
+.search-bar {
+  position: relative; /* Ensure the suggestions are relative to the search bar */
+  display: flex;
+  align-items: center;
+  width: 300px; /* Set a fixed width for the search bar and its elements */
+}
+
+.search-bar input {
+  padding: 8px;
+  width: 100%; /* Set input to take the full width of the search bar */
+  border: 1px solid #ccc;
+  border-radius: 4px 0 0 4px;
+  padding-right: 40px; /* Add space for the spinner or search icon */
+}
+
+.search-bar button {
+  background-color: #1BA8F0;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 0 4px 4px 0;
+  color: white;
+  margin-left: -5px;
+}
+
+.search-spinner {
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.suggestions-list {
+  position: absolute; /* Position relative to the search bar */
+  top: 100%; /* Place it directly below the input */
+  left: 0;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 10;
+  padding: 0;
+  margin: 0;
+}
+
+.suggestions-list li {
+  padding: 8px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.suggestions-list li:hover {
+  background-color: #f0f0f0;
+}
+
+/* Other styles */
 .find-my-job a {
   text-decoration: none;
   color: #3a3a3a;
-  cursor: pointer;
   font-weight: bold;
 }
 
 .find-my-job a:hover {
   color: #1BA8F0;
-} 
+}
 
 .create-profile a {
   text-decoration: none;
   color: #3a3a3a;
-  cursor: pointer;
   font-weight: bold;
 }
 
 .create-profile a:hover {
   color: #1BA8F0;
-}    
+}
 
 .auth-links {
   display: flex;
@@ -66,7 +136,6 @@ header {
 .auth-links a {
   text-decoration: none;
   color: #3a3a3a;
-  cursor: pointer;
   font-weight: bold;
 }
 
@@ -79,30 +148,23 @@ header {
 }
 
 .auth-links .signup-btn {
-  text-decoration: none;
   padding: 8px 16px;
-  color: white;
   border-radius: 30px;
   background-color: #1BA8F0;
-  font-weight: bold;
 }
 
 .auth-links .signup-btn:hover {
-  background-color: #1481C2; /* Hover effect for signup button */
+  background-color: #1481C2;
 }
 
 .auth-links .logout-btn {
-  text-decoration: none;
   padding: 8px 16px;
-  color: white;
   border-radius: 30px;
   background-color: #FF0000;
+  color: white;
   font-weight: bold;
-  transition: background-color 0.3s ease; /* Smooth hover transition */
 }
 
-/* Hover effect for the logout button */
 .auth-links .logout-btn:hover {
-  background-color: #D00000; /* Darker red on hover */
-  color: white; /* Keep the text color white */
+  background-color: #D00000;
 }
