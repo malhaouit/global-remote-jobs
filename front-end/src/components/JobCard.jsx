@@ -21,9 +21,6 @@ const JobCard = ({ id, title, company, logo, location, job_type, salary, posted_
             <li>{salary !== 'Not specified' ? salary : 'Salary not provided'}</li>
             <li>{job_type}</li>
           </ul>
-          {/* <span>{location}</span>
-          <span>{salary !== 'Not specified' ? salary : 'Salary not provided'}</span>
-          <span>{job_type}</span> */}
         </div>
         <p className="posted-time">Posted on: {new Date(posted_date).toLocaleDateString()}</p>
     </Link>

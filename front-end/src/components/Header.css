@@ -35,6 +35,17 @@ header {
   margin-left: 5px;
 }
 
+.find-my-job a {
+  text-decoration: none;
+  color: #3a3a3a;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.find-my-job a:hover {
+  color: #1BA8F0;
+} 
+
 .create-profile a {
   text-decoration: none;
   color: #3a3a3a;
@@ -67,10 +78,6 @@ header {
   color: white;
 }
 
-.auth-links .logout-btn a :hover {
-  color: white;
-}
-
 .auth-links .signup-btn {
   text-decoration: none;
   padding: 8px 16px;
@@ -80,6 +87,10 @@ header {
   font-weight: bold;
 }
 
+.auth-links .signup-btn:hover {
+  background-color: #1481C2; /* Hover effect for signup button */
+}
+
 .auth-links .logout-btn {
   text-decoration: none;
   padding: 8px 16px;
@@ -87,4 +98,11 @@ header {
   border-radius: 30px;
   background-color: #FF0000;
   font-weight: bold;
+  transition: background-color 0.3s ease; /* Smooth hover transition */
+}
+
+/* Hover effect for the logout button */
+.auth-links .logout-btn:hover {
+  background-color: #D00000; /* Darker red on hover */
+  color: white; /* Keep the text color white */
 }
