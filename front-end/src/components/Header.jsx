@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import './Header.css';
-import { FaSearch, FaSpinner } from 'react-icons/fa';  // Import spinner icon
+import { FaSearch, FaSpinner } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import LogoSVG from '../assets/GlobalRemoteJobs.svg';
 import Modal from './Modal';
@@ -11,6 +11,7 @@ const Header = () => {
   const [profileExists, setProfileExists] = useState(false);
   const [userRole, setUserRole] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [nextRoute, setNextRoute] = useState(''); // Track where to redirect after login
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
@@ -27,10 +28,10 @@ const Header = () => {
 
       fetch(`http://localhost:5000/api/profile/${role}`, {
         method: 'GET',
-        headers: { 'Authorization': `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` }
       })
-        .then(res => res.json())
-        .then(data => {
+        .then((res) => res.json())
+        .then((data) => {
           if (data.profile) setProfileExists(true);
         });
     } else {
@@ -61,11 +62,12 @@ const Header = () => {
         job.title.toLowerCase().includes(searchQuery.toLowerCase())
       );
 
-      // Store both job title and job id
-      setSuggestions(filteredJobs.map((job) => ({
-        title: job.title,
-        id: job.id
-      })));
+      setSuggestions(
+        filteredJobs.map((job) => ({
+          title: job.title,
+          id: job.id
+        }))
+      );
     } catch (error) {
       console.error('Error fetching job suggestions:', error);
     } finally {
@@ -89,7 +91,7 @@ const Header = () => {
 
   const handleSearch = () => {
     if (suggestions.length > 0) {
-      navigate(`/job/${suggestions[0].id}`);  // Navigate to the first job in the suggestions
+      navigate(`/job/${suggestions[0].id}`);
     }
   };
 
@@ -100,8 +102,22 @@ const Header = () => {
     window.location.reload();
   };
 
-  const handleProfileClick = () => {
-    if (!isLoggedIn) setShowModal(true);
+  const handleProfileClick = (e) => {
+    e.preventDefault();
+    if (!isLoggedIn) {
+      setNextRoute('/create-profile/seeker');
+      setShowModal(true);
+    }
+  };
+
+  const handleFindMyJobClick = (e) => {
+    e.preventDefault();
+    if (!isLoggedIn) {
+      setNextRoute('/find-my-job');
+      setShowModal(true);
+    } else {
+      navigate('/find-my-job');
+    }
   };
 
   const handleConfirmLogin = () => {
@@ -109,38 +125,42 @@ const Header = () => {
     navigate('/login');
   };
 
+  const handleLoginSuccess = () => {
+    navigate(nextRoute); // Navigate to the saved route after login
+  };
+
   return (
     <header>
-      <div className='logo'>
-        <Link to='/'>
-          <img src={LogoSVG} alt='GlobalRemoteJobs Logo' />
+      <div className="logo">
+        <Link to="/">
+          <img src={LogoSVG} alt="GlobalRemoteJobs Logo" />
         </Link>
       </div>
 
-      <div className='search-bar' ref={searchRef}>
+      <div className="search-bar" ref={searchRef}>
         <input
-          type='text'
-          placeholder='Search for jobs by title...'
+          type="text"
+          placeholder="Search for jobs by title..."
           value={searchQuery}
           onChange={handleSearchChange}
         />
-        <button className='search-btn' onClick={handleSearch}>
+        <button className="search-btn" onClick={handleSearch}>
           {isSearching ? (
-            <FaSpinner className='search-spinner' />  // Spinner replaces search icon
+            <FaSpinner className="search-spinner" />
           ) : (
             <FaSearch />
           )}
         </button>
 
         {suggestions.length > 0 && (
-          <ul className='suggestions-list'>
+          <ul className="suggestions-list">
             {suggestions.map((suggestion, index) => (
               <li
                 key={index}
                 onClick={() => {
                   setSearchQuery(suggestion.title);
                   setSuggestions([]);
-                  navigate(`/job/${suggestion.id}`);  // Navigate on selection
+                  navigate(`/job/${suggestion.id}`);
                 }}
               >
                 {suggestion.title}
@@ -150,41 +170,46 @@ const Header = () => {
         )}
       </div>
 
-      <div className='find-my-job'>
-        <Link to='/find-my-job'>Find My Job</Link>
+      {/* Use Link for "Find My Job" with an onClick event */}
+      <div className="find-my-job">
+        <Link to="/find-my-job" className="find-my-job-btn" onClick={handleFindMyJobClick}>
+          Find My Job
+        </Link>
       </div>
 
-      <div className='create-profile'>
+      <div className="create-profile">
         {isLoggedIn ? (
           profileExists ? (
             userRole === 'job_seeker' ? (
-              <Link to='/modify-profile/seeker'>Modify Profile</Link>
+              <Link to="/modify-profile/seeker">Modify Profile</Link>
             ) : (
-              <Link to='/modify-profile/company'>Modify Profile</Link>
+              <Link to="/modify-profile/company">Modify Profile</Link>
             )
+          ) : userRole === 'job_seeker' ? (
+            <Link to="/create-profile/seeker">Create Profile</Link>
           ) : (
-            userRole === 'job_seeker' ? (
-              <Link to='/create-profile/seeker'>Create Profile</Link>
-            ) : (
-              <Link to='/create-profile/company'>Create Profile</Link>
-            )
+            <Link to="/create-profile/company">Create Profile</Link>
           )
         ) : (
-          <Link onClick={handleProfileClick}>Create Profile</Link>
+          <Link to="#" className="create-profile-btn" onClick={handleProfileClick}>
+            Create Profile
+          </Link>
         )}
       </div>
 
-      <div className='auth-links'>
+      <div className="auth-links">
         {isLoggedIn ? (
           <>
-            <Link to='/profile'>Profile</Link>
-            <button className='logout-btn' onClick={handleLogout}>Logout</button>
+            <Link to="/profile">Profile</Link>
+            <button className="logout-btn" onClick={handleLogout}>
+              Logout
+            </button>
           </>
         ) : (
           <>
             <Link to="/login">Login</Link>
-            <button className='signup-btn'>
-              <Link to='/signup'>Sign Up</Link>
+            <button className="signup-btn">
+              <Link to="/signup">Sign Up</Link>
             </button>
           </>
         )}
@@ -194,6 +219,7 @@ const Header = () => {
         isOpen={showModal}
         onClose={() => setShowModal(false)}
         onConfirm={handleConfirmLogin}
+        onLoginSuccess={handleLoginSuccess}
       />
     </header>
   );
