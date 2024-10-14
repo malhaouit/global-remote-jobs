@@ -5,24 +5,59 @@
 
 .role-options {
   display: flex;
-  justify-content: center;
+  flex-direction: column; /* Align buttons vertically */
+  align-items: center;
   gap: 20px;
 }
 
 .role-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 20px;
   border: 1px solid #1BA8F0;
   border-radius: 8px;
   cursor: pointer;
-  text-align: center;
   background-color: white;
+  width: 500px; /* Add width to buttons */
 }
 
 .role-btn {
+  display: flex;
+  justify-content: center;
   text-decoration: none;
   color: black;
+  width: 100%; /* Ensure the button takes full width */
 }
 
 .role-btn:hover .role-box {
   background-color: #f0f8ff;
+}
+
+.role-box img {
+  width: 100px; /* Set image size */
+  height: 100px;
+  margin-left: 10px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* New styling for the login and home page links */
+.additional-links {
+  margin-top: 30px;
+}
+
+.additional-links p {
+  font-size: 16px;
+  color: #333;
+}
+
+.additional-links a {
+  color: #1BA8F0;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.additional-links a:hover {
+  text-decoration: underline;
 }
