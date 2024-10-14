@@ -66,7 +66,8 @@ const Login = () => {
       {success && <p className="success">{success}</p>}
 
       <div className="switch-text">
-        Don’t have an account? <a href="/signup">Sign up here</a>
+        <p>Don’t have an account? <a href="/signup">Sign up here</a></p>
+        <p>Go back to <a href="/">Home page</a></p>
       </div>
     </div>
   );
