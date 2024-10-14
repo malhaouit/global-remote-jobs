@@ -55,7 +55,7 @@ const Header = () => {
     setIsSearching(true);
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/remote-jobs?search=${searchQuery}`
+        `https://remotive.com/api/remote-jobs?search=${searchQuery}`
       );
 
       const filteredJobs = response.data.jobs.filter((job) =>
