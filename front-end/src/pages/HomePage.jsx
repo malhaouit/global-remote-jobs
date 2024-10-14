@@ -13,7 +13,7 @@ const HomePage = () => {
     // Fetch filtered jobs from the back-end API
     const fetchJobs = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/jobs/filtered');
+        const response = await fetch('https://global-remote-jobs-backend-app-53a58d6be2f0.herokuapp.com/api/jobs/filtered');
         const data = await response.json();
         setJobs(data);
       } catch {
