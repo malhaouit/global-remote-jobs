@@ -79,7 +79,7 @@ const FindMyJob = () => {
 
     try {
       // Save the search criteria
-      const saveSearchResponse = await fetch('http://localhost:5000/api/job-search/save-search', {
+      const saveSearchResponse = await fetch(`${import.meta.env.VITE_API_URL}/job-search/save-search`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -93,7 +93,7 @@ const FindMyJob = () => {
       }
 
       // After saving the search criteria, fetch the jobs
-      const findJobsResponse = await fetch('http://localhost:5000/api/job-search/find-jobs', {
+      const findJobsResponse = await fetch(`${import.meta.env.VITE_API_URL}/job-search/find-jobs`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -119,7 +119,7 @@ const FindMyJob = () => {
 
   return (
     <div className="find-my-job-page">
-      {isLoading && <p>Loading...</p>}
+      {/* {isLoading && <p>Loading...</p>} */}
       <h1>Find My Job</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
