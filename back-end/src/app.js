@@ -24,5 +24,9 @@ app.use('/api', authRoutes);
 app.use('/uploads', express.static('uploads'));
 app.use('/api/profile', profileRoutes);
 app.use('/api/job-search', jobSearchRoutes);
+app.get('/', (req, res) => {
+  res.send('Welcome to the backend of Global Remote Jobs!');
+});
+  
 
 module.exports = app;
