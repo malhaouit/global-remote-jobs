@@ -146,9 +146,16 @@ const FindMyJob = () => {
           <label>Job Category:</label>
           <select value={jobCategory} onChange={handleCategoryChange}>
             <option value="">Select a category</option>
-            <option value="engineering">Engineering</option>
-            <option value="design">Design</option>
-            <option value="marketing">Marketing</option>
+            <option value="Software Development">Software Development</option>
+            <option value="Finance / Legal">Finance / Legal</option>
+            <option value="Product">Product</option>
+            <option value="Marketing">Marketing</option>
+            <option value="DevOps / Sysadmin">DevOps / Sysadmin</option>
+            <option value="Human Resources">Human Resources</option>
+            <option value="Project Management">Project Management</option>
+            <option value="Data Analysis">Data Analysis</option>
+            <option value="Design">Design</option>
+            <option value="Customer Service">Customer Service</option>
             <option value="other">Other</option>
           </select>
         </div>
@@ -172,6 +179,7 @@ const FindMyJob = () => {
             <option value="">Select a job type</option>
             <option value="full_time">Full Time</option>
             <option value="part_time">Part Time</option>
+            <option value="freelance">Freelance</option>
             <option value="contract">Contract</option>
           </select>
         </div>
@@ -183,6 +191,16 @@ const FindMyJob = () => {
             <option value="javascript">JavaScript</option>
             <option value="python">Python</option>
             <option value="react">React</option>
+            <option value="Figma">Figma</option>
+            <option value="technical writing">Technical writing</option>
+            <option value="CI/CD">CI/CD</option>
+            <option value="agile">Agile</option>
+            <option value="Jira">Jira</option>
+            <option value="Django">Django</option>
+            <option value="excel">Excel</option>
+            <option value="growth marketing">Growth marketing</option>
+            <option value="sales operations">Sales operations</option>
+            <option value="video editing">Video editing</option>
             <option value="other">Other</option>
           </select>
         </div>
