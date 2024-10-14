@@ -24,7 +24,7 @@ const SignUpSeeker = () => {
 
     // Make POST request to backend to signup job seeker
     try {
-      const response = await fetch('http://localhost:5000/api/signup/seeker', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/signup/seeker`, {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

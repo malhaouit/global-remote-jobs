@@ -26,7 +26,7 @@ const Header = () => {
       setIsLoggedIn(true);
       setUserRole(role);
 
-      fetch(`http://localhost:5000/api/profile/${role}`, {
+      fetch(`${import.meta.env.VITE_API_URL}/profile/${role}`, {
         method: 'GET',
         headers: { Authorization: `Bearer ${token}` }
       })
@@ -55,7 +55,7 @@ const Header = () => {
     setIsSearching(true);
     try {
       const response = await axios.get(
-        `https://remotive.com/api/remote-jobs?search=${searchQuery}`
+        `${import.meta.env.VITE_API_URL}/remote-jobs?search=${searchQuery}`
       );
 
       const filteredJobs = response.data.jobs.filter((job) =>

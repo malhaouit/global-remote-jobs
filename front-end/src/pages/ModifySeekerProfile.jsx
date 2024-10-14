@@ -20,7 +20,7 @@ const ModifySeekerProfile = () => {
     const fetchProfileData = async () => {
       const token = localStorage.getItem('token');
       try {
-        const response = await fetch('http://localhost:5000/api/profile', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/profile`, {
           method: 'GET',
           headers: { 'Authorization': `Bearer ${token}` }
         });
@@ -80,7 +80,7 @@ const ModifySeekerProfile = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/profile/seeker', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/profile/seeker`, {
         method: 'PUT',
         headers: { 'Authorization': `Bearer ${token}` },
         body: formDataObj

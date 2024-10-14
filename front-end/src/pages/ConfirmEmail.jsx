@@ -13,7 +13,7 @@ const ConfirmEmail = () => {
     const queryParams = new URLSearchParams(location.search);
     const token = queryParams.get('token');
 
-    fetch(`http://localhost:5000/api/confirm/${token}`)
+    fetch(`${import.meta.env.VITE_API_URL}/confirm/${token}`)
       .then(response => response.json())
       .then(data => {
         if (data.message === 'Email confirmed successfully') {

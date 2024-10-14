@@ -15,7 +15,7 @@ const JobDetails = () => {
     // Fetch job details from the back-end
     const fetchJobDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/jobs/${id}`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/jobs/${id}`);
         const data = await response.json();
         setJob(data); // Set the job data
         setLoading(false); // Stop loading

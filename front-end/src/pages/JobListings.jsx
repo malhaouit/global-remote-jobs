@@ -21,7 +21,7 @@ const JobListings = () => {
         ...filters,
       }).toString();
 
-      const response = await fetch(`http://localhost:5000/api/jobs/paginated?${queryParams}`);
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/jobs/paginated?${queryParams}`);
       const data = await response.json();
       setJobs(data.jobs);
       setTotalPages(data.totalPages);

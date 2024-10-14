@@ -27,7 +27,7 @@ const FindMyJob = () => {
 
     const fetchSavedCriteria = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/job-search/get-search', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/job-search/get-search`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
