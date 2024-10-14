@@ -13,7 +13,7 @@ const HomePage = () => {
     // Fetch filtered jobs from the back-end API
     const fetchJobs = async () => {
       try {
-        const response = await fetch('${import.meta.env.VITE_API_URL}/jobs/filtered');
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/jobs/filtered`);
         const data = await response.json();
         setJobs(data);
       } catch {
