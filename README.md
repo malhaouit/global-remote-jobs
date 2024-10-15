@@ -121,13 +121,9 @@ Contributions are welcome! If you'd like to contribute to the project, please fo
 ## Deployment
 This website is deployed on [Heroku](https://dashboard.heroku.com/apps)
 
-- **The link of the back-end app:**
+- **The link of the back-end app:** [global-remote-jobs-backend-app](https://global-remote-jobs-backend-app-53a58d6be2f0.herokuapp.com/)
 
-+ [global-remote-jobs-backend-app](https://global-remote-jobs-backend-app-53a58d6be2f0.herokuapp.com/)
-
-- **The link of the front-end app:**
-
-+ [global-remote-jobs-frontend-ap](https://global-remote-jobs-frontend-ap-65833faf3b86.herokuapp.com/)
+- **The link of the front-end app:** [global-remote-jobs-frontend-ap](https://global-remote-jobs-frontend-ap-65833faf3b86.herokuapp.com/)
 
 ## License
 
