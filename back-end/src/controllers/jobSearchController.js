@@ -54,38 +54,53 @@ const getSavedJobSearchCriteria = async (req, res) => {
 
 // Controller to fetch and filter jobs
 const findJobs = async (req, res) => {
-  const { jobTitle, jobCategory, jobType, location, skills } = req.body;
+  // const { jobTitle, jobCategory, jobType, location, skills } = req.body;
 
-  try {
-    // Log the query parameters you're sending to the Remotive API
-    console.log("Searching for jobs with the following criteria:", {
-      jobTitle, jobCategory, jobType, location, skills
-    });
+  // try {
+  //   console.log("Searching for jobs with the following criteria:", {
+  //     jobTitle, jobCategory, jobType, location, skills
+  //   });
 
-    // Make the API request to Remotive (this example doesn't use specific filters)
-    const response = await axios.get('https://remotive.com/api/remote-jobs', {
-      params: {
-        search: jobTitle, // Search by job title
-        category: jobCategory, // Category
-        job_type: jobType, // Job type
-        location, // Location
-        skills // Skills (optional)
-      }
-    });
+  //   // Make the API request to Remotive (without relying on specific filters from API)
+  //   const response = await axios.get('https://remotive.com/api/remote-jobs');
 
-    console.log("Response from Remotive API:", response.data);
+  //   if (response.data && response.data.jobs) {
+  //     // Split skills string by commas into an array, and trim whitespace
+  //     const skillsArray = skills ? skills.split(',').map(skill => skill.trim().toLowerCase()) : [];
 
-    if (response.data && response.data.jobs) {
-      // Send back the jobs to the front-end
-      return res.json({ jobs: response.data.jobs });
-    } else {
-      return res.status(404).json({ message: 'No jobs found' });
-    }
-  } catch (error) {
-    // Log the exact error that occurs
-    console.error('Error fetching jobs from Remotive API:', error.message, error.response?.data);
-    return res.status(500).json({ message: 'Failed to fetch jobs', error });
-  }
+  //     // Perform manual filtering on the job results
+  //     const filteredJobs = response.data.jobs.filter(job => {
+  //       // Check each filter condition
+  //       const matchesTitle = jobTitle ? job.title.toLowerCase().includes(jobTitle.toLowerCase()) : true;
+  //       const matchesCategory = jobCategory ? job.category.toLowerCase() === jobCategory.toLowerCase() : true;
+  //       const matchesType = jobType ? job.job_type.toLowerCase() === jobType.toLowerCase() : true;
+  //       const matchesLocation = location ? job.candidate_required_location.toLowerCase().includes(location.toLowerCase()) : true;
+  //       const matchesSkills = skillsArray.length > 0 ? skillsArray.every(skill => job.tags.map(tag => tag.toLowerCase()).includes(skill)) : true;
+
+  //       return matchesTitle && matchesCategory && matchesType && matchesLocation && matchesSkills;
+  //     });
+
+  //     // Map the filtered jobs to match the front-end expected format
+  //     const mappedJobs = filteredJobs.map(job => ({
+  //       id: job.id,
+  //       title: job.title,
+  //       company_name: job.company_name,
+  //       company_logo: job.company_logo_url || '', // Using the correct field or fallback
+  //       candidate_required_location: job.candidate_required_location,
+  //       job_type: job.job_type,
+  //       salary: job.salary || 'Not specified', // Ensure there's always a value
+  //       publication_date: job.publication_date
+  //     }));
+
+  //     // Send back the mapped jobs to the front-end
+  //     return res.json({ jobs: mappedJobs });
+  //   } else {
+  //     return res.status(404).json({ message: 'No jobs found' });
+  //   }
+  // } catch (error) {
+  //   console.error('Error fetching jobs from Remotive API:', error.message, error.response?.data);
+  //   return res.status(500).json({ message: 'Failed to fetch jobs', error });
+  // }
 };
 
 module.exports = { saveJobSearchCriteria, getSavedJobSearchCriteria, findJobs };
