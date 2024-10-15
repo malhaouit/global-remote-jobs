@@ -8,6 +8,8 @@ GlobalRemoteJobs is a web platform designed to connect job seekers with remote j
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [API Integration](#api-integration)
+- [Contributing](#contributing)
+- [Deployment](#deployment)
 - [License](#license)
 
 ---
@@ -56,7 +58,7 @@ Follow these steps to get the project up and running on your local machine:
    npm install
    ```
 
-4. **Set up environment variables:** Create a .env file in the root directory for both back-end and front-end and add the following environment variables:
+4. **Set up environment variables:** Create a `.env` file in the root directory for both back-end and front-end and add the following environment variables:
 
 - **In back-end directory:**
    ```bash
@@ -114,6 +116,18 @@ Contributions are welcome! If you'd like to contribute to the project, please fo
    ```
    
 5. Open a pull request on GitHub.
+
+
+## Deployment
+This website is deployed on [Heroku](https://dashboard.heroku.com/apps)
+
+- **The link of the back-end app:**
+
++ [global-remote-jobs-backend-app](https://global-remote-jobs-backend-app-53a58d6be2f0.herokuapp.com/)
+
+- **The link of the front-end app:**
+
++ [global-remote-jobs-frontend-ap](https://global-remote-jobs-frontend-ap-65833faf3b86.herokuapp.com/)
 
 ## License
 
