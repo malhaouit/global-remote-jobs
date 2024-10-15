@@ -12,8 +12,8 @@
   margin-bottom: 40px;
 }
 
-/* Form styling */
-form {
+/* Scope the form styling specifically to the Find My Job page */
+.find-my-job-page form {
   background-color: #fff;
   border-radius: 12px;
   padding: 30px;
@@ -23,34 +23,35 @@ form {
   margin: 0 auto;
 }
 
-.form-group {
+.find-my-job-page .form-group {
   margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.form-group label {
+.find-my-job-page .form-group label {
   width: 150px;
   font-weight: bold;
 }
 
-.form-group input,
-.form-group select {
+.find-my-job-page .form-group input,
+.find-my-job-page .form-group select {
   flex: 1;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
 }
 
-.button-group {
+/* Button group */
+.find-my-job-page .button-group {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.edit-btn,
-.save-btn {
+.find-my-job-page .edit-btn,
+.find-my-job-page .save-btn {
   padding: 10px 20px;
   background-color: #1ba8f0;
   color: white;
@@ -59,21 +60,22 @@ form {
   cursor: pointer;
 }
 
-.edit-btn:hover,
-.save-btn:hover {
+.find-my-job-page .edit-btn:hover,
+.find-my-job-page .save-btn:hover {
   background-color: #1481c2;
 }
 
-.job-results-grid {
+/* Job results grid */
+.find-my-job-page .job-results-grid {
   margin-top: 30px;
 }
 
-.error-message {
+.find-my-job-page .error-message {
   color: red;
   font-weight: bold;
 }
 
-.job-card-container {
+.find-my-job-page .job-card-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 20px;
