@@ -7,11 +7,8 @@ const FindMyJob = () => {
   const [jobCategory, setJobCategory] = useState('');
   const [jobType, setJobType] = useState('');
   const [location, setLocation] = useState('');
-  const [skills, setSkills] = useState('');
   const [otherCategory, setOtherCategory] = useState('');
-  const [otherSkills, setOtherSkills] = useState('');
   const [showOtherCategoryInput, setShowOtherCategoryInput] = useState(false);
-  const [showOtherSkillsInput, setShowOtherSkillsInput] = useState(false);
   const [jobResults, setJobResults] = useState([]);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -28,9 +25,7 @@ const FindMyJob = () => {
     const fetchSavedCriteria = async () => {
       try {
         const response = await fetch(`${import.meta.env.VITE_API_URL}/job-search/get-search`, {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         });
 
         if (response.ok) {
@@ -39,8 +34,14 @@ const FindMyJob = () => {
           setJobCategory(data.jobCategory || '');
           setJobType(data.jobType || '');
           setLocation(data.location || '');
-          setSkills(data.skills || '');
-          fetchJobs(data);
+
+          // Fetch jobs based on the saved criteria
+          fetchJobs({
+            jobTitle: data.jobTitle || '',
+            jobCategory: data.jobCategory || '',
+            jobType: data.jobType || '',
+            location: data.location || '',
+          });
         } else {
           console.log('No saved search criteria found.');
         }
@@ -52,23 +53,19 @@ const FindMyJob = () => {
     fetchSavedCriteria();
   }, [token]);
 
-  const fetchJobs = async (formData) => {
+  // Fetch jobs and filter them based on criteria
+  const fetchJobs = async (criteria) => {
     setIsLoading(true);
-    try {
-      const findJobsResponse = await fetch(`${import.meta.env.VITE_API_URL}/job-search/find-jobs`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
-        body: JSON.stringify(formData),
-      });
+    setError('');
 
-      if (findJobsResponse.ok) {
-        const data = await findJobsResponse.json();
-        setJobResults(data.jobs || []);
+    try {
+      const response = await fetch('https://remotive.com/api/remote-jobs');
+      if (response.ok) {
+        const data = await response.json();
+        const filteredJobs = filterJobs(data.jobs, criteria);
+        setJobResults(filteredJobs);
       } else {
-        setError(`Failed to fetch jobs: ${findJobsResponse.statusText}`);
+        setError('Failed to fetch jobs from Remotive API.');
       }
     } catch (error) {
       console.error('Error fetching jobs:', error);
@@ -78,18 +75,19 @@ const FindMyJob = () => {
     }
   };
 
-  const handleCategoryChange = (e) => {
-    const value = e.target.value;
-    setJobCategory(value);
-    setShowOtherCategoryInput(value === 'other');
+  // Filter jobs based on the search criteria
+  const filterJobs = (jobs, criteria) => {
+    return jobs.filter((job) => {
+      const titleMatch = job.title.toLowerCase().includes(criteria.jobTitle.toLowerCase());
+      const categoryMatch = criteria.jobCategory === 'other' ? true : job.category === criteria.jobCategory;
+      const typeMatch = !criteria.jobType || job.job_type.toLowerCase() === criteria.jobType.toLowerCase();
+      const locationMatch = !criteria.location || job.candidate_required_location.toLowerCase().includes(criteria.location.toLowerCase());
+
+      return titleMatch && categoryMatch && typeMatch && locationMatch;
+    });
   };
 
-  const handleSkillsChange = (e) => {
-    const value = e.target.value;
-    setSkills(value);
-    setShowOtherSkillsInput(value === 'other');
-  };
-
+  // Save search criteria and fetch jobs
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -98,7 +96,6 @@ const FindMyJob = () => {
       jobCategory: showOtherCategoryInput ? otherCategory : jobCategory,
       jobType,
       location,
-      skills: showOtherSkillsInput ? otherSkills : skills,
     };
 
     try {
@@ -106,7 +103,7 @@ const FindMyJob = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(formData),
       });
@@ -117,6 +114,7 @@ const FindMyJob = () => {
 
       // Fetch jobs after saving criteria
       fetchJobs(formData);
+      setIsEditing(false); // Close editing mode after saving
     } catch (error) {
       console.error('Error saving or fetching jobs:', error);
       setError('Failed to fetch jobs');
@@ -131,6 +129,7 @@ const FindMyJob = () => {
           <label>Job Title:</label>
           <input
             type="text"
+            placeholder="Title"
             value={jobTitle}
             onChange={(e) => setJobTitle(e.target.value)}
             required
@@ -142,6 +141,7 @@ const FindMyJob = () => {
           <label>Location:</label>
           <input
             type="text"
+            placeholder="Country"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
             required
@@ -151,11 +151,7 @@ const FindMyJob = () => {
 
         <div className="form-group">
           <label>Job Category:</label>
-          <select
-            value={jobCategory}
-            onChange={handleCategoryChange}
-            disabled={!isEditing}
-          >
+          <select value={jobCategory} onChange={(e) => setJobCategory(e.target.value)} disabled={!isEditing}>
             <option value="">Select a category</option>
             <option value="Software Development">Software Development</option>
             <option value="Finance / Legal">Finance / Legal</option>
@@ -176,6 +172,7 @@ const FindMyJob = () => {
             <label>Other Category:</label>
             <input
               type="text"
+              placeholder="Category"
               value={otherCategory}
               onChange={(e) => setOtherCategory(e.target.value)}
               required={showOtherCategoryInput}
@@ -186,11 +183,7 @@ const FindMyJob = () => {
 
         <div className="form-group">
           <label>Job Type:</label>
-          <select
-            value={jobType}
-            onChange={(e) => setJobType(e.target.value)}
-            disabled={!isEditing}
-          >
+          <select value={jobType} onChange={(e) => setJobType(e.target.value)} disabled={!isEditing}>
             <option value="">Select a job type</option>
             <option value="full_time">Full Time</option>
             <option value="part_time">Part Time</option>
@@ -199,50 +192,8 @@ const FindMyJob = () => {
           </select>
         </div>
 
-        <div className="form-group">
-          <label>Skills:</label>
-          <select
-            value={skills}
-            onChange={handleSkillsChange}
-            disabled={!isEditing}
-          >
-            <option value="">Select skills</option>
-            <option value="javascript">JavaScript</option>
-            <option value="python">Python</option>
-            <option value="react">React</option>
-            <option value="Figma">Figma</option>
-            <option value="technical writing">Technical writing</option>
-            <option value="CI/CD">CI/CD</option>
-            <option value="agile">Agile</option>
-            <option value="Jira">Jira</option>
-            <option value="Django">Django</option>
-            <option value="excel">Excel</option>
-            <option value="growth marketing">Growth marketing</option>
-            <option value="sales operations">Sales operations</option>
-            <option value="video editing">Video editing</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
-
-        {showOtherSkillsInput && (
-          <div className="form-group">
-            <label>Other Skills:</label>
-            <input
-              type="text"
-              value={otherSkills}
-              onChange={(e) => setOtherSkills(e.target.value)}
-              required={showOtherSkillsInput}
-              disabled={!isEditing}
-            />
-          </div>
-        )}
-
         <div className="button-group">
-          <button
-            type="button"
-            onClick={() => setIsEditing(!isEditing)}
-            className="edit-btn"
-          >
+          <button type="button" onClick={() => setIsEditing(!isEditing)} className="edit-btn">
             {isEditing ? 'Cancel' : 'Edit'}
           </button>
 
@@ -252,7 +203,7 @@ const FindMyJob = () => {
         </div>
       </form>
 
-      {/* Display results */}
+      {/* Display job results */}
       {isLoading ? (
         <p className="loading-message">Fetching jobs, please wait...</p>
       ) : jobResults.length > 0 ? (
