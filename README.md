@@ -26,8 +26,7 @@ GlobalRemoteJobs is a web platform designed to connect job seekers with remote j
 ### Prerequisites
 Before you begin, make sure you have the following installed on your machine:
 - **Node.js** (v14 or later)
-- **npm** (or yarn, depending on your preference)
-- **Git** (for version control)
+- **npm** 
 
 ### Installation
 Follow these steps to get the project up and running on your local machine:
@@ -92,6 +91,29 @@ Filters like Job Type, Location, and Salary apply to both external and native jo
 
 ### API Documentation:
 You can refer to the official [Remotive API Documentation](https://remotive.com/api/remote-jobs) for more details on how jobs are fetched and the structure of the API response.
+
+## Contributing
+Contributions are welcome! If you'd like to contribute to the project, please follow these steps:
+
+1. Fork the repository.
+
+2. Create a new branch:
+
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+
+3. Commit your changes:
+   ```bash
+   git commit -m "Add feature: your feature name"
+   ```
+
+4. Push to your branch:
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+   
+5. Open a pull request on GitHub.
 
 ## License
 
