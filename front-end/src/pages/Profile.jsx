@@ -65,7 +65,8 @@ const Profile = () => {
     );
   }
 
-  const baseUrl = process.env.REACT_APP_API_URL;
+  // const baseUrl = process.env.REACT_APP_API_URL;
+  const baseUrl = import.meta.env.VITE_PROFILE_IMAGE_URL;
 
   const imageUrl = profile.profileImage 
     ? `${baseUrl}/${profile.profileImage}` 
