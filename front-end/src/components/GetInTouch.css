@@ -1,0 +1,25 @@
+.git-section {
+  background: linear-gradient(to top, #108fce, #f4f4f4);
+  padding: 80px 20px;
+  text-align: center;
+  color: white;
+  border-radius: 1px 1px 0 0;
+  margin-bottom: 30px;
+}
+
+.git-section h2 {
+  font-size: 32px;
+  color: #FFFFFF;
+  margin-bottom: 20px;
+}
+
+.git-btn {
+  padding: 10px 24px;
+  margin: 0 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+  background-color: white;
+  color: #1BA8F0;
+  font-weight: bold;
+}
