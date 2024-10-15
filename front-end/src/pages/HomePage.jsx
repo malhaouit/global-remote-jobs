@@ -5,6 +5,7 @@ import CallToAction from "../components/CallToAction";
 import Footer from "../components/Footer";
 import './HomePage.css';
 import { Link } from "react-router-dom";
+import GetInTouch from "../components/GetInTouch";
 
 const HomePage = () => {
   const [jobs, setJobs] = useState([]);
@@ -41,6 +42,7 @@ const HomePage = () => {
       </div>
       <JobList jobs={jobs} />
       <CallToAction />
+      <GetInTouch />
       <Footer />
     </div>
   );
