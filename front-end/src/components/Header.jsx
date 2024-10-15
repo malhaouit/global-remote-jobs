@@ -9,7 +9,7 @@ import Modal from './Modal';
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [profileExists, setProfileExists] = useState(false);
-  const [userRole, setUserRole] = useState(null);
+  const [userRole, setUserRole] = useState(null); // Keep track of user role
   const [showModal, setShowModal] = useState(false);
   const [nextRoute, setNextRoute] = useState(''); // Track where to redirect after login
   const navigate = useNavigate();
@@ -20,11 +20,11 @@ const Header = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    const role = localStorage.getItem('role');
+    const role = localStorage.getItem('role'); // Get role from localStorage
 
     if (token && role) {
       setIsLoggedIn(true);
-      setUserRole(role);
+      setUserRole(role); // Store the user's role
 
       fetch(`${import.meta.env.VITE_API_URL}/profile/${role}`, {
         method: 'GET',
@@ -112,11 +112,15 @@ const Header = () => {
 
   const handleFindMyJobClick = (e) => {
     e.preventDefault();
-    if (!isLoggedIn) {
-      setNextRoute('/find-my-job');
-      setShowModal(true);
-    } else {
-      navigate('/find-my-job');
+
+    // Only allow if the user role is "seeker"
+    if (userRole === 'job_seeker') {
+      if (!isLoggedIn) {
+        setNextRoute('/find-my-job');
+        setShowModal(true);
+      } else {
+        navigate('/find-my-job');
+      }
     }
   };
 
@@ -170,9 +174,13 @@ const Header = () => {
         )}
       </div>
 
-      {/* Use Link for "Find My Job" with an onClick event */}
       <div className="find-my-job">
-        <Link to="/find-my-job" className="find-my-job-btn" onClick={handleFindMyJobClick}>
+        {/* Disable the link for companies */}
+        <Link
+          to={userRole === 'job_seeker' ? "/find-my-job" : "#"}
+          className={`find-my-job-btn ${userRole !== 'job_seeker' ? 'disabled-link' : ''}`}
+          onClick={handleFindMyJobClick}
+        >
           Find My Job
         </Link>
       </div>
