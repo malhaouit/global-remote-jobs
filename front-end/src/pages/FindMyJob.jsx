@@ -15,10 +15,10 @@ const FindMyJob = () => {
   const [jobResults, setJobResults] = useState([]);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
-  const token = localStorage.getItem('token');  // Assuming token is used
+  const token = localStorage.getItem('token');
 
-  // Fetch saved criteria on load
   useEffect(() => {
     if (!token) {
       console.error('No token found. User may not be authenticated.');
@@ -29,18 +29,18 @@ const FindMyJob = () => {
       try {
         const response = await fetch(`${import.meta.env.VITE_API_URL}/job-search/get-search`, {
           headers: {
-            'Authorization': `Bearer ${token}`
-          }
+            'Authorization': `Bearer ${token}`,
+          },
         });
 
         if (response.ok) {
           const data = await response.json();
-          // Prefill form with saved data
           setJobTitle(data.jobTitle || '');
           setJobCategory(data.jobCategory || '');
           setJobType(data.jobType || '');
           setLocation(data.location || '');
           setSkills(data.skills || '');
+          fetchJobs(data);
         } else {
           console.log('No saved search criteria found.');
         }
@@ -52,7 +52,32 @@ const FindMyJob = () => {
     fetchSavedCriteria();
   }, [token]);
 
-  // Handle category selection and toggle other input
+  const fetchJobs = async (formData) => {
+    setIsLoading(true);
+    try {
+      const findJobsResponse = await fetch(`${import.meta.env.VITE_API_URL}/job-search/find-jobs`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (findJobsResponse.ok) {
+        const data = await findJobsResponse.json();
+        setJobResults(data.jobs || []);
+      } else {
+        setError(`Failed to fetch jobs: ${findJobsResponse.statusText}`);
+      }
+    } catch (error) {
+      console.error('Error fetching jobs:', error);
+      setError('Failed to fetch jobs');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handleCategoryChange = (e) => {
     const value = e.target.value;
     setJobCategory(value);
@@ -67,7 +92,6 @@ const FindMyJob = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
 
     const formData = {
       jobTitle,
@@ -78,7 +102,6 @@ const FindMyJob = () => {
     };
 
     try {
-      // Save the search criteria
       const saveSearchResponse = await fetch(`${import.meta.env.VITE_API_URL}/job-search/save-search`, {
         method: 'POST',
         headers: {
@@ -92,35 +115,17 @@ const FindMyJob = () => {
         throw new Error(`Failed to save search criteria: ${saveSearchResponse.statusText}`);
       }
 
-      // After saving the search criteria, fetch the jobs
-      const findJobsResponse = await fetch(`${import.meta.env.VITE_API_URL}/job-search/find-jobs`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (findJobsResponse.ok) {
-        const data = await findJobsResponse.json();
-        console.log(data.jobs[2]);
-        setJobResults(data.jobs || []);  // Display the jobs below the form
-      } else {
-        setError(`Failed to fetch jobs: ${findJobsResponse.statusText}`);
-      }
+      // Fetch jobs after saving criteria
+      fetchJobs(formData);
     } catch (error) {
-      console.error('Error fetching jobs:', error);
+      console.error('Error saving or fetching jobs:', error);
       setError('Failed to fetch jobs');
-    } finally {
-      setIsLoading(false);
     }
   };
 
   return (
     <div className="find-my-job-page">
-      {/* {isLoading && <p>Loading...</p>} */}
-      <h1>Find My Job</h1>
+      <h1>My Criteria</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Job Title:</label>
@@ -129,6 +134,7 @@ const FindMyJob = () => {
             value={jobTitle}
             onChange={(e) => setJobTitle(e.target.value)}
             required
+            disabled={!isEditing}
           />
         </div>
 
@@ -139,12 +145,17 @@ const FindMyJob = () => {
             value={location}
             onChange={(e) => setLocation(e.target.value)}
             required
+            disabled={!isEditing}
           />
         </div>
 
         <div className="form-group">
           <label>Job Category:</label>
-          <select value={jobCategory} onChange={handleCategoryChange}>
+          <select
+            value={jobCategory}
+            onChange={handleCategoryChange}
+            disabled={!isEditing}
+          >
             <option value="">Select a category</option>
             <option value="Software Development">Software Development</option>
             <option value="Finance / Legal">Finance / Legal</option>
@@ -160,7 +171,6 @@ const FindMyJob = () => {
           </select>
         </div>
 
-        {/* Other Category Input (conditionally rendered) */}
         {showOtherCategoryInput && (
           <div className="form-group">
             <label>Other Category:</label>
@@ -169,13 +179,18 @@ const FindMyJob = () => {
               value={otherCategory}
               onChange={(e) => setOtherCategory(e.target.value)}
               required={showOtherCategoryInput}
+              disabled={!isEditing}
             />
           </div>
         )}
 
         <div className="form-group">
           <label>Job Type:</label>
-          <select value={jobType} onChange={(e) => setJobType(e.target.value)}>
+          <select
+            value={jobType}
+            onChange={(e) => setJobType(e.target.value)}
+            disabled={!isEditing}
+          >
             <option value="">Select a job type</option>
             <option value="full_time">Full Time</option>
             <option value="part_time">Part Time</option>
@@ -186,7 +201,11 @@ const FindMyJob = () => {
 
         <div className="form-group">
           <label>Skills:</label>
-          <select value={skills} onChange={handleSkillsChange}>
+          <select
+            value={skills}
+            onChange={handleSkillsChange}
+            disabled={!isEditing}
+          >
             <option value="">Select skills</option>
             <option value="javascript">JavaScript</option>
             <option value="python">Python</option>
@@ -205,7 +224,6 @@ const FindMyJob = () => {
           </select>
         </div>
 
-        {/* Other Skills Input (conditionally rendered) */}
         {showOtherSkillsInput && (
           <div className="form-group">
             <label>Other Skills:</label>
@@ -214,51 +232,48 @@ const FindMyJob = () => {
               value={otherSkills}
               onChange={(e) => setOtherSkills(e.target.value)}
               required={showOtherSkillsInput}
+              disabled={!isEditing}
             />
           </div>
         )}
 
-        <button type="submit">Find Jobs</button>
+        <div className="button-group">
+          <button
+            type="button"
+            onClick={() => setIsEditing(!isEditing)}
+            className="edit-btn"
+          >
+            {isEditing ? 'Cancel' : 'Edit'}
+          </button>
+
+          <button type="submit" className="save-btn" disabled={!isEditing}>
+            Save My Criteria
+          </button>
+        </div>
       </form>
 
       {/* Display results */}
-      {/* <div className="job-results">
-        {error && <p className="error-message">{error}</p>}
-        {jobResults.length > 0 ? (
-          <ul>
-            {jobResults.map((job) => (
-              <li key={job.id}>
-                <strong>{job.title}</strong> - {job.company_name} - {job.candidate_required_location}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>{isLoading ? 'Loading jobs...' : 'No jobs found based on your criteria.'}</p>
-        )}
-      </div> */}
-      {/* Display results using JobCard component */}
-      <div className="job-results-grid">
-        {error && <p className="error-message">{error}</p>}
-        {jobResults.length > 0 ? (
-          <div className="job-card-container">
-            {jobResults.map((job, index) => (
-              <JobCard
-                key={index}
-                id={job.id}
-                title={job.title}
-                company={job.company_name}
-                logo={job.company_logo}
-                location={job.candidate_required_location}
-                job_type={job.job_type}
-                salary={job.salary}
-                posted_date={job.publication_date}
-              />
-            ))}
-          </div>
-        ) : (
-          <p>{isLoading ? 'Loading jobs...' : 'No jobs found based on your criteria.'}</p>
-        )}
-      </div>
+      {isLoading ? (
+        <p className="loading-message">Fetching jobs, please wait...</p>
+      ) : jobResults.length > 0 ? (
+        <div className="job-card-container">
+          {jobResults.map((job, index) => (
+            <JobCard
+              key={index}
+              id={job.id}
+              title={job.title}
+              company={job.company_name}
+              logo={job.company_logo}
+              location={job.candidate_required_location}
+              job_type={job.job_type}
+              salary={job.salary}
+              posted_date={job.publication_date}
+            />
+          ))}
+        </div>
+      ) : (
+        <p>No jobs found based on your criteria.</p>
+      )}
     </div>
   );
 };
