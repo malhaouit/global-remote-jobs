@@ -44,6 +44,10 @@
   border-radius: 5px;
 }
 
+.more-jobs {
+  text-align: center;
+}
+
 .no-style-link {
   text-decoration: none;
   color: inherit;
