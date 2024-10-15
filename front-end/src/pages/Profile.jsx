@@ -65,10 +65,12 @@ const Profile = () => {
     );
   }
 
+  const baseUrl = process.env.REACT_APP_API_URL;
+
   const imageUrl = profile.profileImage 
-    ? `http://localhost:5000/${profile.profileImage}` 
+    ? `${baseUrl}/${profile.profileImage}` 
     : profile.companyLogo 
-    ? `http://localhost:5000/${profile.companyLogo}` 
+    ? `${baseUrl}/${profile.companyLogo}` 
     : '';
 
   return (
