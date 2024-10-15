@@ -5,9 +5,8 @@ const CallToAction = () => {
   return (
     <section className="cta-section">
       <div className="cta-content">
-        <h2>Sign Up for Free</h2>
-        <button className="cta-btn">Let's Connect</button>
-        <button className="cta-feedback-btn">Give Us Feddback</button>
+        <h2>Your opinions matters</h2>
+        <button className="cta-btn">Send Us Feedback</button>
       </div>
     </section>
   );
