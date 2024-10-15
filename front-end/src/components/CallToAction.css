@@ -4,7 +4,6 @@
   text-align: center;
   color: white;
   border-radius: 1px 1px 0 0;
-  margin-bottom: 30px;
 }
 
 .cta-section h2 {
@@ -13,20 +12,17 @@
   margin-bottom: 20px;
 }
 
-.cta-btn, .cta-feedback-btn {
+.cta-section h3 {
+  color: white;
+}
+
+.cta-btn  {
   padding: 10px 24px;
   margin: 0 10px;
   font-size: 16px;
   border-radius: 5px;
   border: none;
-}
-
-.cta-btn {
   background-color: white;
   color: #1BA8F0;
-}
-
-.cta-feedback-btn {
-  background-color: #FFFFFF;
-  color: #1BA8F0;
+  font-weight: bold;
 }
