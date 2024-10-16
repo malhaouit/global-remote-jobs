@@ -6,7 +6,11 @@ const sendConfirmationEmail = require('../utils/nodemailer');
 
 // Job Seeker Sign Up
 const signUpSeeker = async (req, res) => {
-  const { firstName, lastName, email, password } = req.body;
+  const { firstName, lastName, email, password, confirmPassword } = req.body;
+
+  if (password !== confirmPassword) {
+    return res.status(400).json({ message: 'Passwords do not match' });
+  }
 
   try {
     const existingUser = await User.findOne({ email });
@@ -39,7 +43,11 @@ const signUpSeeker = async (req, res) => {
 
 // Company Sign Up
 const signUpCompany = async (req, res) => {
-  const { firstName, lastName, email, password } = req.body;
+  const { firstName, lastName, email, password, confirmPassword } = req.body;
+
+  if (password !== confirmPassword) {
+    return res.status(400).json({ message: 'Passwords do not match' });
+  }
 
   try {
     let user = await User.findOne({ email });
