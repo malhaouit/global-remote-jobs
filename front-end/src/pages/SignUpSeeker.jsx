@@ -22,6 +22,11 @@ const SignUpSeeker = () => {
     setSuccess('');
     setError('');
 
+    if (formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match. Please check again.");
+      return; // Prevent form submission if password don't match
+    }
+
     // Make POST request to backend to signup job seeker
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/signup/seeker`, {
