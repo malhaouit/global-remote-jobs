@@ -176,9 +176,9 @@ const Header = () => {
         {/* Disable the link for companies */}
         <Link
           to={userRole === 'job_seeker' ? "/find-my-job" : "#"}
-          className={`find-my-job-btn ${userRole !== 'job_seeker' ? 'disabled-link' : ''}`}
+          className={`find-my-job-btn ${userRole === 'company' ? 'disabled-link' : ''}`}
           onClick={handleFindMyJobClick}
-          title={userRole !== 'job_seeker' ? 'This option is only available for Job Seekers.' : ''}
+          title={userRole === 'company' ? 'This option is only available for Job Seekers.' : ''}
         >
           Find My Job
         </Link>
