@@ -117,6 +117,17 @@ header {
   color: #1BA8F0;
 }
 
+/* Disabled state styling */
+.find-my-job .disabled-link {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Show the tooltip on hover */
+.find-my-job .disabled-link:hover {
+  color: #ccc;
+}
+
 .create-profile a {
   text-decoration: none;
   color: #3a3a3a;
