@@ -11,13 +11,14 @@ const Header = () => {
   const [profileExists, setProfileExists] = useState(false);
   const [userRole, setUserRole] = useState(null); // Keep track of user role
   const [showModal, setShowModal] = useState(false);
-  const [nextRoute, setNextRoute] = useState(''); // Track where to redirect after login
+  const [isLoadingProfile, setIsLoadingProfile] = useState(true); // Track profile loading state
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
   const searchRef = useRef(null);
 
+  // Check if the user is logged in and set user role
   useEffect(() => {
     const token = localStorage.getItem('token');
     const role = localStorage.getItem('role'); // Get role from localStorage
@@ -26,6 +27,7 @@ const Header = () => {
       setIsLoggedIn(true);
       setUserRole(role); // Store the user's role
 
+      // Fetch profile data
       fetch(`${import.meta.env.VITE_API_URL}/profile/${role}`, {
         method: 'GET',
         headers: { Authorization: `Bearer ${token}` }
@@ -33,12 +35,18 @@ const Header = () => {
         .then((res) => res.json())
         .then((data) => {
           if (data.profile) setProfileExists(true);
+        })
+        .catch((error) => console.error('Error fetching profile:', error))
+        .finally(() => {
+          setIsLoadingProfile(false); // Profile loading is finished
         });
     } else {
       setIsLoggedIn(false);
+      setIsLoadingProfile(false); // Even if not logged in, profile loading is considered finished
     }
   }, []);
 
+  // Fetch job suggestions based on the search query
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       if (searchQuery.length > 2) fetchJobSuggestions();
@@ -99,38 +107,28 @@ const Header = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
     setIsLoggedIn(false);
-    window.location.reload();
   };
 
   const handleProfileClick = (e) => {
     e.preventDefault();
     if (!isLoggedIn) {
-      setNextRoute('/create-profile/seeker');
-      setShowModal(true);
+      setShowModal(true); // Show modal to ask for login
     }
   };
 
   const handleFindMyJobClick = (e) => {
     e.preventDefault();
 
-    // Only allow if the user role is "seeker"
-    if (userRole === 'job_seeker') {
-      if (!isLoggedIn) {
-        setNextRoute('/find-my-job');
-        setShowModal(true);
-      } else {
-        navigate('/find-my-job');
-      }
+    if (!isLoggedIn) {
+      setShowModal(true); // Show modal to ask for login
+    } else if (userRole === 'job_seeker') {
+      navigate('/find-my-job');
     }
   };
 
   const handleConfirmLogin = () => {
     setShowModal(false);
     navigate('/login');
-  };
-
-  const handleLoginSuccess = () => {
-    navigate(nextRoute); // Navigate to the saved route after login
   };
 
   return (
@@ -180,28 +178,34 @@ const Header = () => {
           to={userRole === 'job_seeker' ? "/find-my-job" : "#"}
           className={`find-my-job-btn ${userRole !== 'job_seeker' ? 'disabled-link' : ''}`}
           onClick={handleFindMyJobClick}
+          title={userRole !== 'job_seeker' ? 'This option is only available for Job Seekers.' : ''}
         >
           Find My Job
         </Link>
       </div>
 
       <div className="create-profile">
-        {isLoggedIn ? (
-          profileExists ? (
-            userRole === 'job_seeker' ? (
-              <Link to="/modify-profile/seeker">Modify Profile</Link>
+        {/* Delay rendering profile-related buttons until profile data is loaded */}
+        {!isLoadingProfile && (
+          <>
+            {isLoggedIn ? (
+              profileExists ? (
+                userRole === 'job_seeker' ? (
+                  <Link to="/modify-profile/seeker">Modify Profile</Link>
+                ) : (
+                  <Link to="/modify-profile/company">Modify Profile</Link>
+                )
+              ) : userRole === 'job_seeker' ? (
+                <Link to="/create-profile/seeker">Create Profile</Link>
+              ) : (
+                <Link to="/create-profile/company">Create Profile</Link>
+              )
             ) : (
-              <Link to="/modify-profile/company">Modify Profile</Link>
-            )
-          ) : userRole === 'job_seeker' ? (
-            <Link to="/create-profile/seeker">Create Profile</Link>
-          ) : (
-            <Link to="/create-profile/company">Create Profile</Link>
-          )
-        ) : (
-          <Link to="#" className="create-profile-btn" onClick={handleProfileClick}>
-            Create Profile
-          </Link>
+              <Link to="#" className="create-profile-btn" onClick={handleProfileClick}>
+                Create Profile
+              </Link>
+            )}
+          </>
         )}
       </div>
 
@@ -227,7 +231,6 @@ const Header = () => {
         isOpen={showModal}
         onClose={() => setShowModal(false)}
         onConfirm={handleConfirmLogin}
-        onLoginSuccess={handleLoginSuccess}
       />
     </header>
   );
