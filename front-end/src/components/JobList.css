@@ -29,7 +29,7 @@
   }
 }
 
-.job-grid {
+.job-list .job-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 20px;
@@ -52,4 +52,27 @@
   text-decoration: none;
   color: inherit;
   display: inline-block; 
+}
+
+/* Media query for smaller screens */
+@media (max-width: 600px) {
+  .job-list {
+    padding: 20px 10px; /* Adjust padding for smaller screens */
+  }
+
+  .job-list .job-grid {
+    grid-template-columns: 1fr; /* Make the grid single-column on very small screens */
+    gap: 15px; /* Reduce gap for better spacing */
+  }
+
+  .more-jobs-btn {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 400px) {
+  .job-list .job-grid {
+    gap: 10px; /* Further reduce the gap on the smallest screens */
+  }
 }
