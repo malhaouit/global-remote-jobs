@@ -11,6 +11,7 @@
   background-repeat: no-repeat;
   color: white;
   height: 100vh;
+  overflow: hidden; /* Prevent content from going outside the cover */
 }
 
 .cover::before {
@@ -20,14 +21,17 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.4); /* Black overlay with 50% opacity */
+  background: rgba(0, 0, 0, 0.4); /* Black overlay with 40% opacity */
   z-index: 1;  
 }
 
 .cover-content {
   position: relative;
   z-index: 2; /* Ensure content is above the overlay */
-}  
+  max-width: 90%; /* Limit the width for better readability on smaller screens */
+  padding: 0 20px; /* Add horizontal padding to prevent text from touching the edges */
+  box-sizing: border-box; /* Ensure padding doesn't affect the width */
+}
 
 .cover h1 {
   color: white;
@@ -42,11 +46,12 @@
 
 .button-group {
   display: inline-flex;
+  flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
 }
 
 .browse-jobs, .post-job-btn {
   padding: 10px 24px;
-  margin: 0 10px;
+  margin: 10px 5px;
   font-size: 16px;
   border-radius: 5px;
   font-style: normal;
@@ -61,4 +66,55 @@
   background-color: white;
   color: #1BA8F0;
   border: solid #1BA8F0 1px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .cover h1 {
+    font-size: 36px; /* Smaller font size for mobile screens */
+  }
+
+  .cover p {
+    font-size: 16px; /* Adjust text size */
+  }
+
+  .cover {
+    height: auto; /* Adjust height to fit content */
+    min-height: 70vh; /* Ensure it doesn't shrink too much */
+    padding: 40px 20px; /* Add more padding for smaller screens */
+  }
+
+  .button-group {
+    display: block;
+  }
+
+  .browse-jobs, .post-job-btn {
+    width: 100%;
+    max-width: 300px; /* Limit button width */
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cover h1 {
+    font-size: 28px; /* Further reduce font size */
+  }
+
+  .cover p {
+    font-size: 14px; /* Smaller text for narrow screens */
+  }
+
+  .cover {
+    min-height: 60vh; /* Further reduce height for very small screens */
+    padding: 20px; /* Reduce padding */
+  }
+
+  .button-group {
+    width: 100%;
+  }
+
+  .browse-jobs, .post-job-btn {
+    padding: 8px 16px; /* Reduce padding for buttons */
+    font-size: 12px; /* Smaller font size for buttons */
+  }
 }
