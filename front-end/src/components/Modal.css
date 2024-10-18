@@ -8,6 +8,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 4;
+  padding: 20px; /* Ensure space around the modal on smaller screens */
 }
 
 .modal-content {
@@ -15,10 +17,17 @@
   padding: 20px;
   border-radius: 8px;
   text-align: center;
+  width: 100%;
+  max-width: 500px; /* Set a max-width to prevent the modal from getting too wide */
+  box-sizing: border-box;
 }
 
 .modal-actions {
   margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Space between buttons */
+  flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
 }
 
 .confirm-btn, .cancel-btn {
@@ -26,6 +35,8 @@
   margin: 5px;
   cursor: pointer;
   border-radius: 5px;
+  flex: 1 1 120px; /* Make buttons adapt to available space */
+  max-width: 200px; /* Limit the width of buttons on larger screens */
 }
 
 .confirm-btn {
@@ -38,4 +49,27 @@
   background-color: #f44336;
   color: white;
   border: none;
+}
+
+/* Media queries for smaller screens */
+@media (max-width: 480px) {
+  .modal-content {
+    padding: 15px;
+    width: 90%; /* Ensure the modal takes most of the screen width */
+  }
+
+  .confirm-btn, .cancel-btn {
+    padding: 10px 15px; /* Reduce padding for smaller screens */
+    max-width: 100%; /* Allow buttons to take full width if needed */
+  }
+}
+
+@media (max-width: 320px) {
+  .modal-content {
+    padding: 10px; /* Further reduce padding for very small screens */
+  }
+
+  .confirm-btn, .cancel-btn {
+    padding: 8px 12px; /* Smaller buttons for very small screens */
+  }
 }
