@@ -179,3 +179,68 @@ header {
 .auth-links .logout-btn:hover {
   background-color: #D00000;
 }
+
+/* Media query for smaller screens */
+@media (max-width: 800px) {
+  header {
+    flex-direction: column; /* Stack items vertically */
+    padding: 10px;
+    position: static;
+  }
+
+  .logo {
+    margin-bottom: 10px; /* Space between logo and other elements */
+  }
+
+  .search-bar {
+    width: 100%; /* Full width of the screen */
+  }
+
+  .search-bar input {
+    width: calc(100% - 60px); /* Ensure the input and button align correctly */
+  }
+
+  .auth-links {
+    flex-direction: column; /* Stack links vertically */
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .find-my-job,
+  .create-profile {
+    margin-top: 10px;
+    width: 100%;
+    text-align: center; /* Center the text in smaller screens */
+  }
+
+  .find-my-job-btn,
+  .create-profile-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  .auth-links .signup-btn,
+  .auth-links .logout-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .suggestions-list {
+    max-height: 150px; /* Adjust the suggestions list height for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .find-my-job,
+  .create-profile {
+    width: 100%;
+  }
+
+  .auth-links {
+    width: 100%;
+    text-align: center;
+  }
+}
