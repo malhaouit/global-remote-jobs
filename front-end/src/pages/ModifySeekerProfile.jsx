@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './ModifySeekerProfile.css';
+import { FaArrowLeft } from 'react-icons/fa';
 
 const ModifySeekerProfile = () => {
   const [formData, setFormData] = useState({
@@ -15,6 +16,10 @@ const ModifySeekerProfile = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate(-1);
+  }
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -102,6 +107,9 @@ const ModifySeekerProfile = () => {
 
   return (
     <div className="modify-profile-form">
+      <button className='back-btn' onClick={handleBack}>
+        <FaArrowLeft className='back-icon' />
+      </button>
       <h2>Modify Job Seeker Profile</h2>
       <form onSubmit={handleSubmit}>
         <label>

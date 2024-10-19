@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CreateSeekerProfile.css';
+import { FaArrowLeft } from 'react-icons/fa';
 
 const CreateSeekerProfile = () => {
   const [formData, setFormData] = useState({
@@ -18,6 +19,10 @@ const CreateSeekerProfile = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate(-1); // Navigate back to the previous page
+  };
 
   // Handle changes for form inputs
   const handleChange = (e) => {
@@ -84,6 +89,9 @@ const CreateSeekerProfile = () => {
 
   return (
     <div className="create-profile-form">
+      <button className="back-btn" onClick={handleBack}>
+        <FaArrowLeft className="back-icon" />
+      </button>
       <h2>Create Job Seeker Profile</h2>
       <form onSubmit={handleSubmit}>
         <label>

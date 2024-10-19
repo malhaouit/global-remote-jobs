@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Profile.css';
-
+import { FaArrowLeft } from 'react-icons/fa';
+ 
 const Profile = () => {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [basicInfo, setBasicInfo] = useState({ firstName: '', lastName: '', email: '' });
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate(-1);
+  }
 
   const role = localStorage.getItem('role');
 
@@ -78,6 +84,10 @@ const Profile = () => {
     <div className="profile-container"> {/* Add the profile-container wrapper */}
       {role === 'job_seeker' ? (
         <div className="profile-page">
+          <button className='back-btn' onClick={handleBack}>
+            <FaArrowLeft className='back-icon' />
+          </button>
+          
           <h1>{profile.user.firstName} {profile.user.lastName}</h1>
 
           {/* Profile Image */}

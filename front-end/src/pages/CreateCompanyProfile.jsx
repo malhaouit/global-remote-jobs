@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CreateCompanyProfile.css';
+import { FaArrowLeft } from 'react-icons/fa';
 
 const CreateCompanyProfile = () => {
   const [formData, setFormData] = useState({
@@ -19,6 +20,10 @@ const CreateCompanyProfile = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate(-1);
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -82,6 +87,9 @@ const CreateCompanyProfile = () => {
 
   return (
     <div className="create-profile-form">
+      <buuton className='back-btn' onClick={handleBack}>
+        <FaArrowLeft className='back-icon' />
+      </buuton>
       <h2>Create Company Profile</h2>
       <form onSubmit={handleSubmit}>
         <label>
