@@ -28,6 +28,7 @@
 }
 
 .profile-page .back-btn {
+  text-align: left;
   background: none;
   border: none;
   color: #007bff;
@@ -35,10 +36,10 @@
   font-weight: bold;
   cursor: pointer;
   margin-bottom: 20px;
-  margin-top: -10px; /* Move the button slightly upwards */
+  margin-top: 5px; /* Move the button slightly upwards */
   padding: 5px 15px;
   text-decoration: none;
-  width: auto; /* Adjust to prevent full-width */
+  width: 100%; /* Adjust to prevent full-width */
 }
 
 .profile-page .back-icon {
