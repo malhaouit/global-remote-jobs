@@ -1,15 +1,15 @@
 footer {
   background-color: #333;
   color: white;
-  padding: 10px;
+  padding: 20px;
   text-align: center;
   margin-top: 100px;
 }
 
 footer ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 10px 0;
+  list-style-type: none;
+  padding: 0;
+  margin: 10px 0;
 }
 
 footer ul li {
@@ -24,4 +24,20 @@ footer ul li a {
 
 footer ul li a:hover {
   text-decoration: underline;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 600px) {
+  footer {
+    padding: 15px 10px; /* Reduce padding on smaller screens */
+  }
+
+  footer a {
+    font-size: 14px;
+  }
+
+  footer p {
+    font-size: 14px; /* Adjust font size for better readability */
+    margin-bottom: 10px; /* Space between text and the links */
+  }
 }
