@@ -1,6 +1,6 @@
 .git-section {
   background: linear-gradient(to top, #108fce, #f4f4f4);
-  padding: 80px 20px;
+  padding: 60px 20px; /* Adjust padding for better spacing on smaller screens */
   text-align: center;
   color: white;
   border-radius: 1px 1px 0 0;
@@ -22,4 +22,22 @@
   background-color: white;
   color: #1BA8F0;
   font-weight: bold;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 600px) {
+  .git-section {
+    padding: 40px 15px; /* Reduce padding for smaller screens */
+  }
+
+  .git-section h2 {
+    font-size: 24px; /* Reduce heading size for better readability */
+  }
+
+  .git-btn {
+    padding: 8px 20px; /* Adjust button size */
+    font-size: 14px; /* Slightly smaller text for the button */
+    max-width: 300px; /* Limit the max width to keep it centered */
+    margin: 10px auto; /* Center the button with some margin */
+  }
 }
