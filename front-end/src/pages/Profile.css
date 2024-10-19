@@ -13,6 +13,7 @@
   min-height: 100vh; /* Ensure the profile page takes full height */
 }
 
+
 /* Profile page container styling */
 .profile-page {
   max-width: 850px;
@@ -24,6 +25,31 @@
   display: flex;
   flex-direction: column; /* Stacks name, image, and info vertically */
   align-items: center; /* Centers the image and header */
+}
+
+.profile-page .back-btn {
+  background: none;
+  border: none;
+  color: #007bff;
+  font-size: 1.2em;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 20px;
+  margin-top: -10px; /* Move the button slightly upwards */
+  padding: 5px 15px;
+  text-decoration: none;
+  width: auto; /* Adjust to prevent full-width */
+}
+
+.profile-page .back-icon {
+  margin-right: 5px;
+  font-size: 1.2em; /* Ensure the icon has a visible size */
+}
+
+.profile-page .back-btn:hover {
+  background: none;
+  color: #1BA8F0;
+  box-shadow: none;
 }
 
 /* Flex container for the profile details */
@@ -113,6 +139,11 @@
 @media (max-width: 768px) {
   .profile-page {
     padding: 20px;
+  }
+  
+  .profile-page .back-btn {
+    font-size: 1em;
+    margin-bottom: 10px;
   }
 
   .profile-page h1 {

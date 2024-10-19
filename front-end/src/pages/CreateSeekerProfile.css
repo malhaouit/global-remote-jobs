@@ -100,10 +100,42 @@
   margin-bottom: 25px;
 }
 
+.create-profile-form .back-btn {
+  display: inline-flex; /* Keep the button compact */
+  align-items: center; /* Center the icon and text vertically */
+  background: none;
+  border: none;
+  color: #007bff;
+  font-size: 1.2em;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 20px;
+  padding: 5px 15px;
+  text-decoration: none;
+  width: auto; /* Ensure the button only takes the necessary width */
+  max-width: fit-content; /* Prevent the button from stretching */
+}
+
+.create-profile-form .back-icon {
+  margin-right: 5px;
+  font-size: 1.2em; /* Ensure the icon has a visible size */
+}
+
+.create-profile-form .back-btn:hover {
+  background: none;
+  color: #1BA8F0;
+  box-shadow: none;
+}
+
 /* Mobile responsiveness */
 @media (max-width: 768px) {
   .create-profile-form {
     padding: 20px;
+  }
+
+  .create-profile-form .back-btn {
+    font-size: 1em;
+    margin-bottom: 10px;
   }
 
   .create-profile-form h2 {
