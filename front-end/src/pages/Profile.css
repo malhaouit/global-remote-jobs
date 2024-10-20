@@ -25,7 +25,7 @@
   display: inline-flex;
   margin-right: auto;
   text-align: left;
-  margin-top: 15px;
+  margin-top: 10px;
   width: auto;
   max-width: fit-content;
   background: none;
@@ -43,16 +43,13 @@
 
 .profile-page .back-btn:hover {
   color: #1BA8F0;
-  background: none;
-  box-shadow: none;
 }
 
 /* Header styles */
 .profile-page h1 {
   font-size: 2.4em;
   color: #333;
-  margin-top: auto;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   font-weight: 700;
   background: linear-gradient(90deg, #007bff, #1ba8f0);
   -webkit-background-clip: text;
@@ -83,6 +80,7 @@
   align-items: flex-start;
   width: 100%;
   margin-top: 20px;
+  padding: 20px;
 }
 
 .profile-details p {
@@ -116,7 +114,7 @@
   box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Responsive design for smaller screens */
+/* Responsive design for tablets and small screens */
 @media (max-width: 768px) {
   .profile-page {
     padding: 15px;
@@ -124,12 +122,15 @@
 
   .profile-page .back-btn {
     font-size: 1em;
-    margin-top: 10px;
+    margin-top: 5px;
   }
 
   .profile-page h1 {
     font-size: 1.8em;
-    margin-top: 30px;
+  }
+
+  .profile-details {
+    padding: 15px;
   }
 
   .profile-details p {
@@ -144,5 +145,42 @@
   .profile-page button {
     padding: 12px 25px;
     font-size: 1em;
+  }
+}
+
+/* Responsive design for very small screens like phones */
+@media (max-width: 480px) {
+  .profile-page {
+    padding: 10px;
+    margin: 10px;
+  }
+
+  .profile-page .back-btn {
+    font-size: 0.9em;
+    margin-top: 5px;
+  }
+
+  .profile-page h1 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+  }
+
+  .profile-details {
+    padding: 10px;
+  }
+
+  .profile-details p {
+    font-size: 1em;
+    margin: 10px 0;
+  }
+
+  .profile-page img {
+    width: 120px;
+    height: 120px;
+  }
+
+  .profile-page button {
+    padding: 10px 20px;
+    font-size: 0.9em;
   }
 }
