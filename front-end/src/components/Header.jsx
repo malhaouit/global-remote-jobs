@@ -8,8 +8,11 @@ import Modal from './Modal';
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef(null);
   const [profileExists, setProfileExists] = useState(false);
   const [userRole, setUserRole] = useState(null); // Keep track of user role
+  const [userName, setUserName] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [isLoadingProfile, setIsLoadingProfile] = useState(true); // Track profile loading state
   const navigate = useNavigate();
@@ -35,6 +38,7 @@ const Header = () => {
         .then((res) => res.json())
         .then((data) => {
           if (data.profile) setProfileExists(true);
+          setUserName(data.profile.user.firstName || 'U');
         })
         .catch((error) => console.error('Error fetching profile:', error))
         .finally(() => {
@@ -103,10 +107,31 @@ const Header = () => {
     }
   };
 
+  // Toggle the dropdown menu
+  const toggleDropdown = () => {
+    setShowDropdown((prev) => !prev);
+  };
+
+  // Close dropdown when clicking outside of it
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
     setIsLoggedIn(false);
+    setShowDropdown(false); // Close dropdown on logout
   };
 
   const handleProfileClick = (e) => {
@@ -130,6 +155,8 @@ const Header = () => {
     setShowModal(false);
     navigate('/login');
   };
+
+  const firstLetter = userName.charAt(0).toUpperCase();
 
   return (
     <header>
@@ -211,17 +238,27 @@ const Header = () => {
 
       <div className="auth-links">
         {isLoggedIn ? (
-          <>
-            <Link to="/profile">Profile</Link>
-            <button className="logout-btn" onClick={handleLogout}>
-              Logout
+          <div className='user-icon-container' ref={dropdownRef}>
+            <button className='user-icon-btn' onClick={toggleDropdown}>
+              {/* Display user icon */}
+              <div className='user-icon'>{firstLetter}</div>
             </button>
-          </>
+
+            {/* Dropdown menu */}
+            {showDropdown && (
+              <div className='dropdown-menu'>
+                <Link to='/profile' onClick={() => setShowDropdown(false)}>
+                  Profile
+                </Link>
+                <Link to="/" onClick={handleLogout}>Logout</Link>
+              </div>
+            )}
+          </div>
         ) : (
           <>
-            <Link to="/login">Login</Link>
-            <button className="signup-btn">
-              <Link to="/signup">Sign Up</Link>
+            <Link to='/login'>Login</Link>
+            <button className='signup-btn'>
+              <Link to='/signup'>Sign Up</Link>
             </button>
           </>
         )}
