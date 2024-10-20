@@ -93,16 +93,10 @@
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
 }
 
-/* Input type specific adjustments */
-.create-profile-form input[type="email"],
-.create-profile-form input[type="tel"],
-.create-profile-form input[type="url"] {
-  margin-bottom: 25px;
-}
-
+/* Back button styling */
 .create-profile-form .back-btn {
-  display: inline-flex; /* Keep the button compact */
-  align-items: center; /* Center the icon and text vertically */
+  display: inline-flex;
+  align-items: center;
   background: none;
   border: none;
   color: #007bff;
@@ -112,22 +106,20 @@
   margin-bottom: 20px;
   padding: 5px 15px;
   text-decoration: none;
-  width: auto; /* Ensure the button only takes the necessary width */
-  max-width: fit-content; /* Prevent the button from stretching */
+  width: auto;
+  max-width: fit-content;
 }
 
 .create-profile-form .back-icon {
   margin-right: 5px;
-  font-size: 1.2em; /* Ensure the icon has a visible size */
+  font-size: 1.2em;
 }
 
 .create-profile-form .back-btn:hover {
-  background: none;
   color: #1BA8F0;
-  box-shadow: none;
 }
 
-/* Mobile responsiveness */
+/* Responsive design for tablets */
 @media (max-width: 768px) {
   .create-profile-form {
     padding: 20px;
@@ -154,5 +146,36 @@
   .create-profile-form button {
     padding: 12px;
     font-size: 1.1em;
+  }
+}
+
+/* Responsive design for small screens like phones */
+@media (max-width: 480px) {
+  .create-profile-form {
+    padding: 15px;
+    margin: 20px auto;
+  }
+
+  .create-profile-form h2 {
+    font-size: 1.6em;
+  }
+
+  .create-profile-form h3 {
+    font-size: 1.2em;
+  }
+
+  .create-profile-form .back-btn {
+    font-size: 0.9em;
+    padding: 3px 10px;
+  }
+
+  .create-profile-form input,
+  .create-profile-form textarea {
+    padding: 10px;
+  }
+
+  .create-profile-form button {
+    padding: 10px;
+    font-size: 1em;
   }
 }
