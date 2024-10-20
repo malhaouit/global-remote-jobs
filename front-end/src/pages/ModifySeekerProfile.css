@@ -10,6 +10,7 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
 }
 
+/* Back button styling */
 .modify-profile-form .back-btn {
   display: inline-flex; /* Keep the button compact */
   align-items: center; /* Center the icon and text vertically */
@@ -135,6 +136,10 @@
     font-size: 1.8em;
   }
 
+  .modify-profile-form h3 {
+    font-size: 1.3em;
+  }
+
   .modify-profile-form input,
   .modify-profile-form textarea {
     padding: 12px;
@@ -143,5 +148,36 @@
   .modify-profile-form button {
     padding: 12px;
     font-size: 1.1em;
+  }
+}
+
+/* Adjustments for smaller screens like phones */
+@media (max-width: 480px) {
+  .modify-profile-form {
+    padding: 15px;
+    margin: 20px auto;
+  }
+
+  .modify-profile-form .back-btn {
+    font-size: 0.9em;
+    padding: 3px 10px;
+  }
+
+  .modify-profile-form h2 {
+    font-size: 1.6em;
+  }
+
+  .modify-profile-form h3 {
+    font-size: 1.2em;
+  }
+
+  .modify-profile-form input,
+  .modify-profile-form textarea {
+    padding: 10px;
+  }
+
+  .modify-profile-form button {
+    padding: 10px;
+    font-size: 1em;
   }
 }
