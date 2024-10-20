@@ -43,6 +43,8 @@
 
 .profile-page .back-btn:hover {
   color: #1BA8F0;
+  background: none;
+  box-shadow: none;
 }
 
 /* Header styles */
