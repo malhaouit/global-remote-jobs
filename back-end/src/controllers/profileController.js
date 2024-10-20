@@ -72,9 +72,9 @@ const getProfileByRole = async (req, res) => {
     let profile;
 
     if (role === 'job_seeker') {
-      profile = await SeekerProfile.findOne({ user: req.user.id });
+      profile = await SeekerProfile.findOne({ user: req.user.id }).populate('user', 'firstName');
     } else if (role === 'company') {
-      profile = await CompanyProfile.findOne({ user: req.user.id });
+      profile = await CompanyProfile.findOne({ user: req.user.id }).populate('user', 'firstName');
     }
 
     if (!profile) {
