@@ -108,6 +108,9 @@ const Profile = () => {
         </div>
       ) : role === 'company' ? (
         <div className="profile-page">
+          <button className='back-btn' onClick={handleBack}>
+            <FaArrowLeft className='back-icon' />
+          </button>
           <h1>{profile.companyName}</h1>
 
           {/* Company Logo */}
