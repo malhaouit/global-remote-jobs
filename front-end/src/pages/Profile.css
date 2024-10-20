@@ -1,81 +1,66 @@
-/* Target the profile page specifically with the .profile-container */
-.profile-container * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Background gradient for the Profile page only */
+/* Container for the entire profile page */
 .profile-container {
-  background: linear-gradient(135deg, #e0f7fa, #f1f8e9); /* Soft gradient background */
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern and clean font */
-  padding: 30px 0; /* Add some top and bottom padding */
-  min-height: 100vh; /* Ensure the profile page takes full height */
+  background: linear-gradient(135deg, #e0f7fa, #f1f8e9);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 30px 0;
+  min-height: 100vh;
 }
 
-
-/* Profile page container styling */
+/* Profile page styling */
 .profile-page {
   max-width: 850px;
-  margin: 60px auto;
-  padding: 30px;
+  margin: 20px auto;
+  padding: 20px;
   background-color: #ffffff;
   border-radius: 15px;
   box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.1);
   display: flex;
-  flex-direction: column; /* Stacks name, image, and info vertically */
-  align-items: center; /* Centers the image and header */
+  flex-direction: column;
+  align-items: center;
+  position: relative;
 }
 
+/* Back button styling */
 .profile-page .back-btn {
+  display: inline-flex;
+  margin-right: auto;
   text-align: left;
+  margin-top: 15px;
+  width: auto;
+  max-width: fit-content;
   background: none;
   border: none;
   color: #007bff;
   font-size: 1.2em;
   font-weight: bold;
   cursor: pointer;
-  margin-bottom: 20px;
-  margin-top: 5px; /* Move the button slightly upwards */
-  padding: 5px 15px;
-  text-decoration: none;
-  width: 100%; /* Adjust to prevent full-width */
 }
 
 .profile-page .back-icon {
   margin-right: 5px;
-  font-size: 1.2em; /* Ensure the icon has a visible size */
+  font-size: 1.2em;
 }
 
 .profile-page .back-btn:hover {
-  background: none;
   color: #1BA8F0;
+  background: none;
   box-shadow: none;
 }
 
-/* Flex container for the profile details */
-.profile-details {
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 100%;
-  margin-top: 20px;
-}
-
-/* Header styles for the profile name */
+/* Header styles */
 .profile-page h1 {
-  font-size: 2.8em;
+  font-size: 2.4em;
   color: #333;
-  margin-bottom: 20px;
+  margin-top: auto;
+  margin-bottom: 40px;
   font-weight: 700;
-  letter-spacing: 1px;
   background: linear-gradient(90deg, #007bff, #1ba8f0);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  text-align: center;
 }
 
-/* Profile and company images */
+/* Profile image */
 .profile-page img {
   width: 180px;
   height: 180px;
@@ -91,7 +76,15 @@
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Profile information styling */
+/* Profile details */
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  margin-top: 20px;
+}
+
 .profile-details p {
   font-size: 1.2em;
   color: #555;
@@ -103,19 +96,6 @@
   color: #333;
   font-weight: bold;
   margin-right: 8px;
-}
-
-/* Links styling */
-.profile-details a {
-  color: #007bff;
-  font-weight: 600;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.profile-details a:hover {
-  color: #0056b3;
-  text-decoration: underline;
 }
 
 /* Button styling */
@@ -139,16 +119,17 @@
 /* Responsive design for smaller screens */
 @media (max-width: 768px) {
   .profile-page {
-    padding: 20px;
+    padding: 15px;
   }
-  
+
   .profile-page .back-btn {
     font-size: 1em;
-    margin-bottom: 10px;
+    margin-top: 10px;
   }
 
   .profile-page h1 {
-    font-size: 2em;
+    font-size: 1.8em;
+    margin-top: 30px;
   }
 
   .profile-details p {
