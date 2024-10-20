@@ -14,6 +14,7 @@ import Profile from './pages/Profile';
 import ModifySeekerProfile from './pages/ModifySeekerProfile';
 import ModifyCompanyProfile from './pages/ModifyCompanyProfile';
 import FindMyJob from './pages/FindMyJob';
+import About from './components/About';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
         <Route path="/modify-profile/seeker" element={<ModifySeekerProfile />} />
         <Route path="/modify-profile/company" element={<ModifyCompanyProfile />} />
         <Route path='/find-my-job' element={<FindMyJob />} />
+        <Route path='/about' element={<About />} />
       </Routes>
     </Router>
   );
