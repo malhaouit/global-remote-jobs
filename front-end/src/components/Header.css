@@ -1,3 +1,4 @@
+/* Header component */
 header {
   position: sticky;
   top: 0;
@@ -10,19 +11,22 @@ header {
   z-index: 3;
 }
 
+/* Logo image */
 .logo img {
   cursor: pointer;
 }
 
+/* Search bar */
 .search-bar {
   position: relative;
   display: flex;
   align-items: center;
+  width: 300px;
 }
 
 .search-bar input {
   padding: 8px;
-  width: 300px;
+  width: 100%;
   border: 1px solid #ccc;
   border-radius: 4px 0 0 4px;
 }
@@ -31,39 +35,6 @@ header {
   background-color: #1BA8F0;
   padding: 8px 12px;
   border: none;
-  border-radius: 4px;
-  color: white;
-}
-
-.searching-message {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  margin-top: 5px;
-  color: #777;
-  font-size: 14px;
-}
-
-/* Suggestions list styling */
-.search-bar {
-  position: relative; /* Ensure the suggestions are relative to the search bar */
-  display: flex;
-  align-items: center;
-  width: 300px; /* Set a fixed width for the search bar and its elements */
-}
-
-.search-bar input {
-  padding: 8px;
-  width: 100%; /* Set input to take the full width of the search bar */
-  border: 1px solid #ccc;
-  border-radius: 4px 0 0 4px;
-  padding-right: 40px; /* Add space for the spinner or search icon */
-}
-
-.search-bar button {
-  background-color: #1BA8F0;
-  padding: 8px 12px;
-  border: 0;
   border-radius: 0 4px 4px 0;
   color: white;
   margin-left: -5px;
@@ -82,9 +53,10 @@ header {
   }
 }
 
+/* Suggestions list */
 .suggestions-list {
-  position: absolute; /* Position relative to the search bar */
-  top: 100%; /* Place it directly below the input */
+  position: absolute;
+  top: 100%;
   left: 0;
   right: 0;
   background-color: white;
@@ -92,8 +64,6 @@ header {
   max-height: 200px;
   overflow-y: auto;
   z-index: 10;
-  padding: 0;
-  margin: 0;
 }
 
 .suggestions-list li {
@@ -106,7 +76,57 @@ header {
   background-color: #f0f0f0;
 }
 
-/* Other styles */
+/* User Icon Button */
+.user-icon-container {
+  position: relative;
+}
+
+.user-icon-btn {
+  background: #1BA8F0;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: white;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.user-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  z-index: 10;
+  min-width: 130px;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 10px 15px;
+  text-align: left;
+  border-radius: 8px;
+}
+
+.dropdown-menu a:hover {
+  background-color: #f0f0f0;
+  color: #1BA8F0;
+}
+
+/* Find My Job button */
 .find-my-job a {
   text-decoration: none;
   color: #3a3a3a;
@@ -117,17 +137,16 @@ header {
   color: #1BA8F0;
 }
 
-/* Disabled state styling */
 .find-my-job .disabled-link {
   color: #ccc;
   cursor: not-allowed;
 }
 
-/* Show the tooltip on hover */
 .find-my-job .disabled-link:hover {
   color: #ccc;
 }
 
+/* Create Profile button */
 .create-profile a {
   text-decoration: none;
   color: #3a3a3a;
@@ -138,6 +157,7 @@ header {
   color: #1BA8F0;
 }
 
+/* Auth Links */
 .auth-links {
   display: flex;
   align-items: center;
@@ -168,40 +188,24 @@ header {
   background-color: #1481C2;
 }
 
-.auth-links .logout-btn {
-  padding: 8px 16px;
-  border-radius: 30px;
-  background-color: #FF0000;
-  color: white;
-  font-weight: bold;
-}
-
-.auth-links .logout-btn:hover {
-  background-color: #D00000;
-}
-
 /* Media query for smaller screens */
 @media (max-width: 800px) {
   header {
-    flex-direction: column; /* Stack items vertically */
+    flex-direction: column;
     padding: 10px;
     position: static;
   }
 
   .logo {
-    margin-bottom: 10px; /* Space between logo and other elements */
+    margin-bottom: 10px;
   }
 
   .search-bar {
-    width: 100%; /* Full width of the screen */
-  }
-
-  .search-bar input {
-    width: calc(100% - 60px); /* Ensure the input and button align correctly */
+    width: 100%;
   }
 
   .auth-links {
-    flex-direction: column; /* Stack links vertically */
+    flex-direction: column;
     gap: 10px;
     margin-top: 10px;
   }
@@ -210,7 +214,7 @@ header {
   .create-profile {
     margin-top: 10px;
     width: 100%;
-    text-align: center; /* Center the text in smaller screens */
+    text-align: center;
   }
 
   .find-my-job-btn,
@@ -218,18 +222,14 @@ header {
     display: block;
     width: 100%;
     padding: 10px;
-    box-sizing: border-box;
-    text-align: center;
   }
 
-  .auth-links .signup-btn,
-  .auth-links .logout-btn {
+  .auth-links .signup-btn {
     width: 100%;
-    text-align: center;
   }
 
   .suggestions-list {
-    max-height: 150px; /* Adjust the suggestions list height for smaller screens */
+    max-height: 150px;
   }
 }
 
