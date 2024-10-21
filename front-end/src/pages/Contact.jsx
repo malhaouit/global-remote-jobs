@@ -84,6 +84,10 @@ const Contact = () => {
           {isSubmitting ? "Sending..." : "Submit"}
         </button>
       </form>
+
+      <div className="switch-text">
+        <p>Go back to <a href="/"><strong>Home page</strong></a></p>
+      </div>
     </div>
   );
 };
