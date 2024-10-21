@@ -31,4 +31,30 @@ const sendConfirmationEmail = (recipientEmail, confirmationToken) => {
   });
 };
 
-module.exports = sendConfirmationEmail;
+const sendContactForm = async (name, email, subject, message) => {
+  try {
+    // Set up your email transport (use your SMTP service or email provider)
+    const transporter = nodemailer.createTransport({
+      service: 'Gmail', // Use your email service (e.g., Gmail, SMTP provider)
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASSWORD,
+      },
+    });
+
+    // Send an email
+    await transporter.sendMail({
+      from: email,
+      to: process.env.RECEIVER_EMAIL, // Replace with your email address
+      subject: `Contact Form: ${subject}`,
+      text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
+    });
+
+    console.log('Contact form message sent successfully');
+  } catch (error) {
+    console.error('Error sending contact form message:', error);
+    throw error; // Re-throw the error so the controller can handle it
+  }
+};
+
+module.exports = { sendConfirmationEmail, sendContactForm };
