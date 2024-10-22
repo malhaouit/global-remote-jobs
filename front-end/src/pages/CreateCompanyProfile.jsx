@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import './CreateCompanyProfile.css';
-import { FaArrowLeft } from 'react-icons/fa';
+import { FaHome, FaUser, FaEnvelope } from 'react-icons/fa';
 
 const CreateCompanyProfile = () => {
   const [formData, setFormData] = useState({
@@ -18,12 +18,9 @@ const CreateCompanyProfile = () => {
     companyLogo: null // New state to hold the image file
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
-
-  const handleBack = () => {
-    navigate(-1);
-  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,6 +43,8 @@ const CreateCompanyProfile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSuccessMessage('');
+    setErrorMessage('');
     setIsSubmitting(true);
     const token = localStorage.getItem('token');
 
@@ -74,11 +73,13 @@ const CreateCompanyProfile = () => {
       });
 
       if (response.ok) {
-        navigate('/profile'); // Redirect to success page after profile creation
+        setSuccessMessage('Profile created succesfully!');
       } else {
+        setErrorMessage('Failed to create profile, please try again later!');
         console.error('Failed to create profile:', response.statusText);
       }
     } catch (error) {
+      setErrorMessage('Error creating profile, please try again later!');
       console.error('Error creating profile:', error);
     } finally {
       setIsSubmitting(false);
@@ -86,54 +87,71 @@ const CreateCompanyProfile = () => {
   };
 
   return (
-    <div className="create-profile-form">
-      <buuton className='back-btn' onClick={handleBack}>
-        <FaArrowLeft className='back-icon' />
-      </buuton>
-      <h2>Create Company Profile</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Company Name:
-          <input type="text" name="companyName" value={formData.companyName} onChange={handleChange} required />
-        </label>
-        <label>
-          Industry:
-          <input type="text" name="industry" value={formData.industry} onChange={handleChange} required />
-        </label>
-        <label>
-          Company Size:
-          <input type="text" name="companySize" value={formData.companySize} onChange={handleChange} />
-        </label>
-        <label>
-          Company Description:
-          <textarea name="description" value={formData.description} onChange={handleChange} required />
-        </label>
-        <label>
-          Website:
-          <input type="url" name="website" value={formData.website} onChange={handleChange} required />
-        </label>
+    <div className='create-company-container'>
+      <div className='navigation'>
+        <Link to="/" className="nav-icon">
+          <FaHome />
+          <span>Home</span>
+        </Link>
+        <Link to="/profile" className="nav-icon">
+          <FaUser />
+          <span>Profile</span>
+        </Link>
+        <Link to="/contact" className="nav-icon">
+          <FaEnvelope />
+          <span>Contact Us</span>
+        </Link>
+      </div>
 
-        <h3>Contact Information</h3>
-        <label>
-          Email:
-          <input type="email" name="email" value={formData.contactInfo.email} onChange={handleChange} required />
-        </label>
-        <label>
-          Phone:
-          <input type="tel" name="phone" value={formData.contactInfo.phone} onChange={handleChange} required />
-        </label>
-        <label>
-          LinkedIn:
-          <input type="url" name="linkedin" value={formData.contactInfo.linkedin} onChange={handleChange} />
-        </label>
+      <div className="form">
+        <h2>Create Company Profile</h2>
+        <form onSubmit={handleSubmit}>
+          <label>
+            Company Name:
+            <input type="text" name="companyName" value={formData.companyName} onChange={handleChange} required />
+          </label>
+          <label>
+            Industry:
+            <input type="text" name="industry" value={formData.industry} onChange={handleChange} required />
+          </label>
+          <label>
+            Company Size:
+            <input type="text" name="companySize" value={formData.companySize} onChange={handleChange} />
+          </label>
+          <label>
+            Company Description:
+            <textarea name="description" value={formData.description} onChange={handleChange} required />
+          </label>
+          <label>
+            Website:
+            <input type="url" name="website" value={formData.website} onChange={handleChange} required />
+          </label>
 
-        <label>
-          Company Logo:
-          <input type="file" name="companyLogo" onChange={handleFileChange} />
-        </label>
+          <h3>Contact Information</h3>
+          <label>
+            Email:
+            <input type="email" name="email" value={formData.contactInfo.email} onChange={handleChange} required />
+          </label>
+          <label>
+            Phone:
+            <input type="tel" name="phone" value={formData.contactInfo.phone} onChange={handleChange} required />
+          </label>
+          <label>
+            LinkedIn:
+            <input type="url" name="linkedin" value={formData.contactInfo.linkedin} onChange={handleChange} />
+          </label>
 
-        <button type="submit" disabled={isSubmitting}>Create Profile</button>
-      </form>
+          <label>
+            Company Logo:
+            <input type="file" name="companyLogo" onChange={handleFileChange} />
+          </label>
+
+          {errorMessage && <p className='error'>{errorMessage}</p>}
+          {successMessage && <p className='success'>{successMessage}</p>}
+
+          <button type="submit" disabled={isSubmitting}>Create Profile</button>
+        </form>
+      </div>
     </div>
   );
 };
