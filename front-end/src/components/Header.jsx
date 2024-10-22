@@ -25,6 +25,11 @@ const Header = () => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     const role = localStorage.getItem('role'); // Get role from localStorage
+    const firstName = localStorage.getItem('firstName');
+
+    if (firstName) {
+      setUserName(firstName);
+    }
 
     if (token && role) {
       setIsLoggedIn(true);
@@ -37,8 +42,10 @@ const Header = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          if (data.profile) setProfileExists(true);
-          setUserName(data.profile.user.firstName || 'U');
+          if (data.profile) {
+            setProfileExists(true);
+            setUserName(data.profile.user.firstName);
+          }
         })
         .catch((error) => console.error('Error fetching profile:', error))
         .finally(() => {
@@ -130,6 +137,7 @@ const Header = () => {
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
+    localStorage.removeItem('firstName');
     setIsLoggedIn(false);
     setShowDropdown(false); // Close dropdown on logout
   };
@@ -156,7 +164,7 @@ const Header = () => {
     navigate('/login');
   };
 
-  const firstLetter = userName.charAt(0).toUpperCase();
+  const firstLetter = userName.charAt(0).toUpperCase() || 'U';
 
   return (
     <header>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Profile.css';
-import { FaArrowLeft } from 'react-icons/fa';
+import { FaHome, FaEdit, FaEnvelope } from 'react-icons/fa';
  
 const Profile = () => {
   const [profile, setProfile] = useState(null);
@@ -9,10 +9,6 @@ const Profile = () => {
   const [error, setError] = useState('');
   const [basicInfo, setBasicInfo] = useState({ firstName: '', lastName: '', email: '' });
   const navigate = useNavigate();
-
-  const handleBack = () => {
-    navigate(-1);
-  }
 
   const role = localStorage.getItem('role');
 
@@ -82,52 +78,80 @@ const Profile = () => {
 
   return (
     <div className="profile-container"> {/* Add the profile-container wrapper */}
+      
       {role === 'job_seeker' ? (
-        <div className="profile-page">
-          <button className='back-btn' onClick={handleBack}>
-            <FaArrowLeft className='back-icon' />
-          </button>
+        <>
+          <div className='navigation'>
+            <Link to="/" className="nav-icon">
+              <FaHome />
+              <span>Home</span>
+            </Link>
+            <Link to="/modify-profile/seeker" className="nav-icon">
+              <FaEdit />
+              <span>Edit</span>
+            </Link>
+            <Link to="/contact" className="nav-icon">
+              <FaEnvelope />
+              <span>Contact Us</span>
+            </Link>
+          </div>
           
-          <h1>{profile.user.firstName} {profile.user.lastName}</h1>
+          <div className="profile-page">
+            <h1>{profile.user.firstName} {profile.user.lastName}</h1>
 
-          {/* Profile Image */}
-          {imageUrl && <img src={imageUrl} alt="Profile" />}
+            {/* Profile Image */}
+            {imageUrl && <img src={imageUrl} alt="Profile" />}
 
-          {/* Left-aligned Profile Information */}
-          <div className="profile-details">
-            <p><strong>Bio:</strong> {profile.bio}</p>
-            <p><strong>Skills:</strong> {profile.skills}</p>
-            <p><strong>Experience:</strong> {profile.experience}</p>
-            <p><strong>Education:</strong> {profile.education}</p>
-            <p><strong>Email:</strong> {profile.contactInfo.email}</p>
-            <p><strong>Phone:</strong> {profile.contactInfo.phone}</p>
-            <p><strong>LinkedIn:</strong> <a href={profile.contactInfo.linkedin}>{profile.contactInfo.linkedin}</a></p>
+            {/* Left-aligned Profile Information */}
+            <div className="profile-details">
+              <p><strong>Bio:</strong> {profile.bio}</p>
+              <p><strong>Skills:</strong> {profile.skills}</p>
+              <p><strong>Experience:</strong> {profile.experience}</p>
+              <p><strong>Education:</strong> {profile.education}</p>
+              <p><strong>Email:</strong> {profile.contactInfo.email}</p>
+              <p><strong>Phone:</strong> {profile.contactInfo.phone}</p>
+              <p><strong>LinkedIn:</strong> <a href={profile.contactInfo.linkedin}>{profile.contactInfo.linkedin}</a></p>
+            </div>
+
+            <button>Delete Profile</button>
           </div>
-
-          <button>Edit Job Seeker Profile</button>
-        </div>
+        </>
       ) : role === 'company' ? (
-        <div className="profile-page">
-          <button className='back-btn' onClick={handleBack}>
-            <FaArrowLeft className='back-icon' />
-          </button>
-          <h1>{profile.companyName}</h1>
-
-          {/* Company Logo */}
-          {imageUrl && <img src={imageUrl} alt="Company Logo" />}
-
-          {/* Left-aligned Profile Information */}
-          <div className="profile-details">
-            <p><strong>Description:</strong> {profile.description}</p>
-            <p><strong>Industry:</strong> {profile.industry}</p>
-            <p><strong>Company Size:</strong> {profile.companySize}</p>
-            <p><strong>Website:</strong> <a href={profile.website}>{profile.website}</a></p>
-            <p><strong>Phone:</strong> {profile.contactInfo.phone}</p>
-            <p><strong>LinkedIn:</strong> <a href={profile.contactInfo.linkedin}>{profile.contactInfo.linkedin}</a></p>
+        <>
+          <div className='navigation'>
+            <Link to="/" className="nav-icon">
+              <FaHome />
+              <span>Home</span>
+            </Link>
+            <Link to="/modify-profile/company" className="nav-icon">
+              <FaEdit />
+              <span>Edit</span>
+            </Link>
+            <Link to="/contact" className="nav-icon">
+              <FaEnvelope />
+              <span>Contact Us</span>
+            </Link>
           </div>
 
-          <button>Edit Company Profile</button>
-        </div>
+          <div className="profile-page">
+            <h1>{profile.companyName}</h1>
+
+            {/* Company Logo */}
+            {imageUrl && <img src={imageUrl} alt="Company Logo" />}
+
+            {/* Left-aligned Profile Information */}
+            <div className="profile-details">
+              <p><strong>Description:</strong> {profile.description}</p>
+              <p><strong>Industry:</strong> {profile.industry}</p>
+              <p><strong>Company Size:</strong> {profile.companySize}</p>
+              <p><strong>Website:</strong> <a href={profile.website}>{profile.website}</a></p>
+              <p><strong>Phone:</strong> {profile.contactInfo.phone}</p>
+              <p><strong>LinkedIn:</strong> <a href={profile.contactInfo.linkedin}>{profile.contactInfo.linkedin}</a></p>
+            </div>
+
+            <button>Delete Profile</button>
+          </div>
+        </>
       ) : (
         <div>Invalid profile data</div>
       )}
