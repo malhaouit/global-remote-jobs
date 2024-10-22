@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import './ModifySeekerProfile.css';
-import { FaArrowLeft } from 'react-icons/fa';
+import { FaHome, FaUser, FaEnvelope } from 'react-icons/fa';
 
 const ModifySeekerProfile = () => {
   const [formData, setFormData] = useState({
@@ -15,11 +15,9 @@ const ModifySeekerProfile = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
-
-  const handleBack = () => {
-    navigate(-1);
-  }
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -68,6 +66,8 @@ const ModifySeekerProfile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSuccessMessage('');
+    setErrorMessage('');
     setIsSubmitting(true);
     const token = localStorage.getItem('token');
     const formDataObj = new FormData();
@@ -92,11 +92,13 @@ const ModifySeekerProfile = () => {
       });
 
       if (response.ok) {
-        navigate('/profile');
+        setSuccessMessage('Profile updated succesfully!');
       } else {
+        setErrorMessage('Failed to update profile, please try again later!')
         console.error('Failed to update profile:', response.statusText);
       }
     } catch (error) {
+      setErrorMessage('Error updating profile, please try again later!');
       console.error('Error updating profile:', error);
     } finally {
       setIsSubmitting(false);
@@ -106,50 +108,67 @@ const ModifySeekerProfile = () => {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div className="modify-profile-form">
-      <button className='back-btn' onClick={handleBack}>
-        <FaArrowLeft className='back-icon' />
-      </button>
-      <h2>Modify Job Seeker Profile</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Bio:
-          <textarea name="bio" value={formData.bio} onChange={handleChange} required />
-        </label>
-        <label>
-          Skills:
-          <input type="text" name="skills" value={formData.skills} onChange={handleChange} required />
-        </label>
-        <label>
-          Experience:
-          <textarea name="experience" value={formData.experience} onChange={handleChange} required />
-        </label>
-        <label>
-          Education:
-          <textarea name="education" value={formData.education} onChange={handleChange} required />
-        </label>
+    <div className='modify-seeker-container'>
+      <div className='navigation'>
+        <Link to="/" className="nav-icon">
+          <FaHome />
+          <span>Home</span>
+        </Link>
+        <Link to="/profile" className="nav-icon">
+          <FaUser />
+          <span>Profile</span>
+        </Link>
+        <Link to="/contact" className="nav-icon">
+          <FaEnvelope />
+          <span>Contact Us</span>
+        </Link>
+      </div>
 
-        <h3>Contact Information</h3>
-        <label>
-          Email:
-          <input type="email" name="email" value={formData.contactInfo.email} onChange={handleChange} required />
-        </label>
-        <label>
-          Phone:
-          <input type="tel" name="phone" value={formData.contactInfo.phone} onChange={handleChange} required />
-        </label>
-        <label>
-          LinkedIn:
-          <input type="url" name="linkedin" value={formData.contactInfo.linkedin} onChange={handleChange} />
-        </label>
+      <div className="form">
+        <h2>Update Job Seeker Profile</h2>
+        <form onSubmit={handleSubmit}>
+          <label>
+            Bio:
+            <textarea name="bio" value={formData.bio} onChange={handleChange} required />
+          </label>
+          <label>
+            Skills:
+            <input type="text" name="skills" value={formData.skills} onChange={handleChange} required />
+          </label>
+          <label>
+            Experience:
+            <textarea name="experience" value={formData.experience} onChange={handleChange} required />
+          </label>
+          <label>
+            Education:
+            <textarea name="education" value={formData.education} onChange={handleChange} required />
+          </label>
 
-        <label>
-          Profile Image:
-          <input type="file" name="profileImage" onChange={handleFileChange} />
-        </label>
+          <h3>Contact Information</h3>
+          <label>
+            Email:
+            <input type="email" name="email" value={formData.contactInfo.email} onChange={handleChange} required />
+          </label>
+          <label>
+            Phone:
+            <input type="tel" name="phone" value={formData.contactInfo.phone} onChange={handleChange} required />
+          </label>
+          <label>
+            LinkedIn:
+            <input type="url" name="linkedin" value={formData.contactInfo.linkedin} onChange={handleChange} />
+          </label>
 
-        <button type="submit" disabled={isSubmitting}>Save Changes</button>
-      </form>
+          <label>
+            Profile Image:
+            <input type="file" name="profileImage" onChange={handleFileChange} />
+          </label>
+
+          {errorMessage && <p className='error'>{errorMessage}</p>}
+          {successMessage && <p className='success'>{successMessage}</p>}
+
+          <button type="submit" disabled={isSubmitting}>Save Changes</button>
+        </form>
+      </div>
     </div>
   );
 };
