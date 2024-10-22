@@ -156,7 +156,7 @@ const Header = () => {
     navigate('/login');
   };
 
-  const firstLetter = userName.charAt(0).toUpperCase();
+  const firstLetter = userName.charAt(0).toUpperCase() || 'U';
 
   return (
     <header>
