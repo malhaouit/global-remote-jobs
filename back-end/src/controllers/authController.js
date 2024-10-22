@@ -126,13 +126,12 @@ const login = async (req, res) => {
 
     // Generate token
     const token = generateToken(user._id, user.role);
-    
-    console.log(user.role);
 
     res.json({
       message: 'Login successful',
       token,
       role: user.role,
+      firstName: user.firstName,
     });
   } catch (error) {
     console.log(error);
