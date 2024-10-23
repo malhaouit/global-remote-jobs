@@ -106,8 +106,25 @@
   margin-right: 8px;
 }
 
-/* Button styling */
-.profile-page button {
+/* Complete button styling */
+.profile-page .complete-btn {
+  padding: 14px 28px;
+  background: linear-gradient(90deg, #007bff, #1ba8f0);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 40px;
+}
+
+.profile-page .complete-btn:hover {
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Delete button styling */
+.profile-page .delete-btn {
   padding: 14px 28px;
   background: linear-gradient(135deg, rgb(255, 75, 75), red);
   color: white;
@@ -119,8 +136,7 @@
   margin-top: 40px;
 }
 
-.profile-page button:hover {
-  background: linear-gradient(135deg, rgb(255, 0, 0), rgb(195, 0, 0));
+.profile-page .delete-btn:hover {
   box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
 }
 
