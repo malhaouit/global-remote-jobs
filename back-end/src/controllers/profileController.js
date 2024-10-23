@@ -105,7 +105,6 @@ const getProfile = async (req, res) => {
         message: 'Profile not found',
         firstName: user.firstName,
         lastName: user.lastName,
-        email: user.email,
       });
     }
 
@@ -180,8 +179,21 @@ const modifyCompanyProfile = async (req, res) => {
   }
 };
 
-const deleteProfile = async (req, res) => {
-  // Logic for deleting profile goes here
+const deleteProfileDetails = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    const deleteProfileDetails = await SeekerProfile.findOneAndDelete({ user: userId });
+
+    if (!deleteProfileDetails) {
+      return res.status(404).json({ message: 'Profile not found'});
+    }
+
+    res.status(200).json({ message: 'Profile deleted successfully '});
+  } catch (error) {
+    console.error('Error deleting profile:', error);
+    res.status(500).json({ message: 'Server error, please try again later'});
+  }
 };
 
 module.exports = { 
@@ -191,5 +203,5 @@ module.exports = {
   getProfile,
   modifySeekerProfile,
   modifyCompanyProfile,
-  deleteProfile,
+  deleteProfileDetails,
 };
