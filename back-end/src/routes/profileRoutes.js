@@ -2,7 +2,7 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const { protect } = require('../middleware/authMiddleware');
-const { createSeekerProfile, createCompanyProfile, getProfileByRole, getProfile, modifySeekerProfile, modifyCompanyProfile, deleteProfile } = require('../controllers/profileController');
+const { createSeekerProfile, createCompanyProfile, getProfileByRole, getProfile, modifySeekerProfile, modifyCompanyProfile, deleteProfileDetails } = require('../controllers/profileController');
 
 const router = express.Router();
 
@@ -47,8 +47,10 @@ router.put('/company', protect, upload.single('companyLogo'), modifyCompanyProfi
 
 // Fetch, update, or delete the authenticated user's profile
 router.route('/')
-  .get(protect, getProfile)
-  .delete(protect, deleteProfile);
+  .get(protect, getProfile);
+
+// Route to deleted the seeker profile
+router.delete('/delete-profile', protect, deleteProfileDetails);
 
 // Get profile by role
 router.get('/:role', protect, getProfileByRole);
