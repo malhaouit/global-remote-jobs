@@ -24,7 +24,6 @@ const Profile = () => {
           setBasicInfo({
             firstName: data.firstName,
             lastName: data.lastName,
-            email: data.email,
           });
         } else {
           setProfile(data);
@@ -46,20 +45,18 @@ const Profile = () => {
           <>
             <h1>{`${basicInfo.firstName} ${basicInfo.lastName}`}</h1>
             <img src="/default-avatar.svg" alt="Default Avatar" style={{ width: '150px', height: '150px', borderRadius: '50%' }} />
-            <p>{`${basicInfo.email}`}</p>
             <p>Complete your profile from here</p>
             <Link to='/create-profile/seeker'>
-              <button>Complete Profile</button>
+              <button className='complete-btn'>Complete Profile</button>
             </Link>
           </>
         ) : role === 'company' ? (
           <>
             <h1>{`${basicInfo.firstName} ${basicInfo.lastName}`}</h1>
             <img src="/default-company-logo.svg" alt="Default Company Logo" style={{ width: '150px', height: '150px' }} />
-            <p>{`${basicInfo.email}`}</p>
             <p>Complete your profile from here</p>
             <Link to='/create-profile/company'>
-              <button>Complete Profile</button>
+              <button className='complete-btn'>Complete Profile</button>
             </Link>
           </>
         ) : null}
@@ -75,6 +72,35 @@ const Profile = () => {
     : profile.companyLogo 
     ? `${baseUrl}/${profile.companyLogo}` 
     : '';
+
+  // Delete the profile
+  const handleDeleteProfile = async () => {
+    const token = localStorage.getItem('token');
+
+    if (!window.confirm('Are you sure you want to delete your profile? This action cannot be undone.')) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/profile/delete-profile`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        alert('Profile deleted successfully.');
+        window.location.reload();
+      } else {
+        const errorData = await response.json();
+        setError(errorData.message || 'Failed to delted profile.');
+      }
+    } catch (err) {
+      setError('An error occurred while deleting the profile. Please try again later.');
+    }
+  };
 
   return (
     <div className="profile-container"> {/* Add the profile-container wrapper */}
@@ -113,7 +139,9 @@ const Profile = () => {
               <p><strong>LinkedIn:</strong> <a href={profile.contactInfo.linkedin}>{profile.contactInfo.linkedin}</a></p>
             </div>
 
-            <button>Delete Profile</button>
+            {error && <p className='error-message'>{error}</p>}
+
+            <button className='delete-btn' onClick={handleDeleteProfile}>Delete Profile</button>
           </div>
         </>
       ) : role === 'company' ? (
@@ -149,7 +177,7 @@ const Profile = () => {
               <p><strong>LinkedIn:</strong> <a href={profile.contactInfo.linkedin}>{profile.contactInfo.linkedin}</a></p>
             </div>
 
-            <button>Delete Profile</button>
+            <button className='delete-btn'>Delete Profile</button>
           </div>
         </>
       ) : (
